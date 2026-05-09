@@ -1,0 +1,76 @@
+[
+  {
+    "id": "coupang_arrow_format",
+    "name": "쿠팡이츠 화살표 포맷 (매장→배달지)",
+    "platform": "COUPANG_EATS",
+    "title": "새로운 주문",
+    "text": "강남 BBQ치킨 → 서초구 잠원동 25\n예상 배달료: ₩4,200\n예상 시간: 22분  2.7km",
+    "big_text": "강남 BBQ치킨 → 서초구 잠원동 25\n예상 배달료: ₩4,200\n예상 시간: 22분  2.7km",
+    "summary_text": "",
+    "expected": {
+      "fee": 4200,
+      "distance_km": 2.7,
+      "estimated_min": 22,
+      "delivery_contains": "잠원동",
+      "min_confidence": 0.75
+    },
+    "rider_action": "ACCEPT",
+    "note": "쿠팡이츠 화살표 포맷 → 배달지 추출 검증"
+  },
+  {
+    "id": "coupang_won_symbol",
+    "name": "쿠팡이츠 ₩ 기호 포맷",
+    "platform": "COUPANG_EATS",
+    "title": "주문 요청",
+    "text": "성북 햄버거킹 → 성북구 안암동 789\n배달료: ₩3,800\n시간: 15분 | 1.9km",
+    "big_text": "성북 햄버거킹 → 성북구 안암동 789\n배달료: ₩3,800\n시간: 15분 | 1.9km",
+    "summary_text": "",
+    "expected": {
+      "fee": 3800,
+      "distance_km": 1.9,
+      "estimated_min": 15,
+      "delivery_contains": "안암동",
+      "min_confidence": 0.70
+    },
+    "rider_action": "ACCEPT",
+    "note": "₩ 기호 가격 파싱 검증"
+  },
+  {
+    "id": "coupang_long_distance",
+    "name": "쿠팡이츠 비효율 장거리",
+    "platform": "COUPANG_EATS",
+    "title": "새로운 주문",
+    "text": "중구 명동 맥도날드 → 강동구 천호동 123\n예상 배달료: ₩5,500\n예상 시간: 55분  11.2km",
+    "big_text": "중구 명동 맥도날드 → 강동구 천호동 123\n예상 배달료: ₩5,500\n예상 시간: 55분  11.2km",
+    "summary_text": "",
+    "expected": {
+      "fee": 5500,
+      "distance_km": 11.2,
+      "estimated_min": 55,
+      "delivery_contains": "천호동",
+      "min_confidence": 0.70
+    },
+    "rider_action": "REJECT",
+    "note": "11km 55분 → AI 거절 권장 검증"
+  },
+  {
+    "id": "coupang_no_arrow",
+    "name": "쿠팡이츠 화살표 없는 포맷 (버전 변경)",
+    "platform": "COUPANG_EATS",
+    "title": "주문이 도착했습니다",
+    "text": "픽업: 용산구 이태원동 789\n배달지: 용산구 한남동 34\n스시 세트 2인\n배달료 4,800원 | 1.1km | 10분",
+    "big_text": "픽업: 용산구 이태원동 789\n배달지: 용산구 한남동 34\n스시 세트 2인\n배달료 4,800원 | 1.1km | 10분",
+    "summary_text": "",
+    "expected": {
+      "fee": 4800,
+      "distance_km": 1.1,
+      "estimated_min": 10,
+      "pickup_contains": "이태원",
+      "delivery_contains": "한남동",
+      "menu_contains": "스시",
+      "min_confidence": 0.75
+    },
+    "rider_action": "ACCEPT",
+    "note": "화살표 없을 때 레이블 패턴 fallback 검증"
+  }
+]

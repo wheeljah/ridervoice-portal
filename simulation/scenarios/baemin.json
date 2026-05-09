@@ -1,0 +1,95 @@
+[
+  {
+    "id": "baemin_high_value",
+    "name": "배민 고수익 단거리 주문",
+    "platform": "BAEMIN",
+    "title": "새 주문",
+    "text": "픽업: 강남구 테헤란로 123\n배달: 서초구 서초대로 456\n후라이드 치킨 1마리\n배달료 4,500원 | 2.3km | 18분",
+    "big_text": "픽업: 강남구 테헤란로 123\n배달: 서초구 서초대로 456\n후라이드 치킨 1마리\n배달료 4,500원 | 2.3km | 18분",
+    "summary_text": "",
+    "expected": {
+      "fee": 4500,
+      "distance_km": 2.3,
+      "estimated_min": 18,
+      "pickup_contains": "테헤란로",
+      "delivery_contains": "서초대로",
+      "menu_contains": "치킨",
+      "min_confidence": 0.80
+    },
+    "rider_action": "ACCEPT",
+    "note": "고수익, 짧은 거리 → 수락 권장"
+  },
+  {
+    "id": "baemin_low_value",
+    "name": "배민 저수익 장거리 주문",
+    "platform": "BAEMIN",
+    "title": "새 주문",
+    "text": "픽업: 종로구 종로3가 456\n배달: 강남구 삼성동 789\n김치찌개 + 공기밥\n배달료 2,500원 | 9.8km | 42분",
+    "big_text": "픽업: 종로구 종로3가 456\n배달: 강남구 삼성동 789\n김치찌개 + 공기밥\n배달료 2,500원 | 9.8km | 42분",
+    "summary_text": "",
+    "expected": {
+      "fee": 2500,
+      "distance_km": 9.8,
+      "estimated_min": 42,
+      "pickup_contains": "종로",
+      "delivery_contains": "삼성동",
+      "min_confidence": 0.75
+    },
+    "rider_action": "REJECT",
+    "note": "저수익, 장거리 → 거절 권장"
+  },
+  {
+    "id": "baemin_ambiguous_price",
+    "name": "배민 가격 모호 (메뉴+배달료 혼재)",
+    "platform": "BAEMIN",
+    "title": "주문받기",
+    "text": "픽업: 마포구 합정동 234\n배달: 마포구 망원동 11\n피자 L사이즈 35,000원\n배달료 3,200원 | 1.5km | 12분",
+    "big_text": "픽업: 마포구 합정동 234\n배달: 마포구 망원동 11\n피자 L사이즈 35,000원\n배달료 3,200원 | 1.5km | 12분",
+    "summary_text": "",
+    "expected": {
+      "fee": 3200,
+      "distance_km": 1.5,
+      "estimated_min": 12,
+      "pickup_contains": "합정동",
+      "menu_contains": "피자",
+      "min_confidence": 0.75
+    },
+    "rider_action": "ACCEPT",
+    "note": "메뉴 가격과 배달료가 혼재 → 배달료 정확히 선택해야 함"
+  },
+  {
+    "id": "baemin_distance_meters",
+    "name": "배민 거리 m 단위 표기",
+    "platform": "BAEMIN",
+    "title": "새 주문",
+    "text": "픽업: 영등포구 여의도동 567\n배달: 영등포구 당산동 12\n샐러드 도시락\n배달료 2,800원 | 850m | 8분",
+    "big_text": "픽업: 영등포구 여의도동 567\n배달: 영등포구 당산동 12\n샐러드 도시락\n배달료 2,800원 | 850m | 8분",
+    "summary_text": "",
+    "expected": {
+      "fee": 2800,
+      "distance_km": 0.85,
+      "estimated_min": 8,
+      "pickup_contains": "여의도",
+      "min_confidence": 0.70
+    },
+    "rider_action": "ACCEPT",
+    "note": "m 단위 → km 변환 검증 (850m = 0.85km)"
+  },
+  {
+    "id": "baemin_parse_fail",
+    "name": "배민 파싱 어려운 포맷 (버전 변경 가정)",
+    "platform": "BAEMIN",
+    "title": "배달 요청",
+    "text": "새로운 배달 요청이 있습니다. 확인해주세요.",
+    "big_text": "",
+    "summary_text": "",
+    "expected": {
+      "fee": null,
+      "distance_km": null,
+      "estimated_min": null,
+      "max_confidence": 0.20
+    },
+    "rider_action": null,
+    "note": "정보 없는 알림 → 신뢰도 낮음 경고 표시 검증"
+  }
+]
