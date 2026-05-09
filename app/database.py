@@ -47,3 +47,23 @@ def get_db():
 def init_db():
     """Initialize database tables"""
     Base.metadata.create_all(bind=engine)
+    # 컬럼 마이그레이션
+    migrations = [
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_date VARCHAR",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS delivery_accounts JSONB DEFAULT '[]'",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_type VARCHAR",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_expires_at TIMESTAMP",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_paused BOOLEAN DEFAULT FALSE",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_start_time TIMESTAMP",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_end_time TIMESTAMP",
+        "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP",
+    ]
+    with engine.connect() as conn:
+        for sql in migrations:
+            try:
+                conn.execute(text(sql))
+            except Exception:
+                pass
+        conn.commit()
