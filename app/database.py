@@ -60,6 +60,13 @@ def init_db():
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_start_time TIMESTAMP",
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_end_time TIMESTAMP",
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP",
+        # created_at / updated_at 이 INTEGER로 생성된 경우 BIGINT로 변환
+        "ALTER TABLE users ALTER COLUMN created_at TYPE BIGINT USING created_at::BIGINT",
+        "ALTER TABLE users ALTER COLUMN updated_at TYPE BIGINT USING updated_at::BIGINT",
+        # current_license_expires_at, pause_start_time, pause_end_time 도 BIGINT로 통일
+        "ALTER TABLE users ALTER COLUMN current_license_expires_at TYPE BIGINT USING EXTRACT(EPOCH FROM current_license_expires_at)::BIGINT * 1000",
+        "ALTER TABLE users ALTER COLUMN pause_start_time TYPE BIGINT USING EXTRACT(EPOCH FROM pause_start_time)::BIGINT * 1000",
+        "ALTER TABLE users ALTER COLUMN pause_end_time TYPE BIGINT USING EXTRACT(EPOCH FROM pause_end_time)::BIGINT * 1000",
     ]
     with engine.connect() as conn:
         for sql in migrations:
