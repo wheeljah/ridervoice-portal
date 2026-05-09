@@ -2,7 +2,7 @@
 Database connection and session management for RiderVoice AI Backend
 """
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import get_settings
 
@@ -47,6 +47,7 @@ def get_db():
 def init_db():
     """Initialize database tables"""
     Base.metadata.create_all(bind=engine)
+
     # 컬럼 마이그레이션
     migrations = [
         "ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR",
@@ -64,6 +65,8 @@ def init_db():
         for sql in migrations:
             try:
                 conn.execute(text(sql))
-            except Exception:
-                pass
+                print(f"[MIGRATION] OK: {sql}")
+            except Exception as e:
+                print(f"[MIGRATION] SKIP: {sql} → {e}")
         conn.commit()
+    print("[DEBUG] run_init_db: migration 완료")
