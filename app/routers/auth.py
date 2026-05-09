@@ -3,11 +3,12 @@ RiderVoiceAI Backend API Routers - Auth Endpoints
 회원가입 / 로그인 / 토큰 갱신 / 내 정보 조회
 """
 import time
+import json
 from datetime import datetime, timedelta, timezone
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends, HTTPException, Header, status
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from jose import JWTError, jwt
@@ -24,23 +25,33 @@ settings = get_settings()
 # 설정
 # ──────────────────────────────────────────────
 JWT_ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24        # 24시간
-REFRESH_TOKEN_EXPIRE_DAYS = 30               # 30일
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24   # 24시간
+REFRESH_TOKEN_EXPIRE_DAYS = 30          # 30일
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 # ──────────────────────────────────────────────
-# Pydantic 스키마 (이 파일 안에 정의)
+# Pydantic 스키마
 # ──────────────────────────────────────────────
+class DeliveryAccount(BaseModel):
+    platform: str
+    account_id: Optional[str] = None
+    password: Optional[str] = None
+
+
 class RegisterRequest(BaseModel):
-    email: EmailStr = Field(..., description="이메일 (로그인 ID)")
+    username: str = Field(..., description="아이디 (로그인 ID)")
     password: str = Field(..., min_length=6, description="비밀번호 (최소 6자)")
+    name: Optional[str] = Field(None, description="이름")
+    phone: Optional[str] = Field(None, description="전화번호")
+    birth_date: Optional[str] = Field(None, description="생년월일")
     device_id: Optional[str] = Field(None, description="디바이스 ID")
+    delivery_accounts: Optional[List[DeliveryAccount]] = Field(None, description="배달 계정 목록")
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr = Field(..., description="이메일")
+    username: str = Field(..., description="아이디")
     password: str = Field(..., description="비밀번호")
     device_id: Optional[str] = Field(None, description="디바이스 ID (선택)")
 
@@ -49,7 +60,7 @@ class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
-    expires_in: int = ACCESS_TOKEN_EXPIRE_MINUTES * 60  # seconds
+    expires_in: int = ACCESS_TOKEN_EXPIRE_MINUTES * 60
 
 
 class RefreshRequest(BaseModel):
@@ -58,7 +69,10 @@ class RefreshRequest(BaseModel):
 
 class MeResponse(BaseModel):
     user_id: str
-    email: str
+    username: str
+    name: Optional[str] = None
+    phone: Optional[str] = None
+    birth_date: Optional[str] = None
     device_id: Optional[str] = None
     current_license_type: Optional[str] = None
     current_license_expires_at: Optional[int] = None
@@ -99,7 +113,6 @@ def create_refresh_token(user_id: str) -> str:
 
 
 def decode_token(token: str, expected_type: str) -> str:
-    """토큰 디코드 → user_id 반환. 실패 시 HTTPException."""
     credentials_exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="유효하지 않은 토큰입니다.",
@@ -125,7 +138,7 @@ def get_current_user(
     db: Session = Depends(get_db),
 ) -> User:
     if not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Authorization 헤더 형식이 잘못되었습니다. 'Bearer <token>'")
+        raise HTTPException(status_code=401, detail="Authorization 헤더 형식 오류. 'Bearer <token>'")
     token = authorization[7:]
     user_id = decode_token(token, "access")
     user = db.query(User).filter(User.user_id == user_id).first()
@@ -137,90 +150,99 @@ def get_current_user(
 # ──────────────────────────────────────────────
 # 엔드포인트
 # ──────────────────────────────────────────────
-@router.post("/register", response_model=TokenResponse, status_code=201)
+@router.post("/register", status_code=201)
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
     """
     회원가입
-
-    - 이메일 중복 확인 후 계정 생성
+    - username 중복 확인 후 계정 생성
     - access_token + refresh_token 반환
     """
-    existing = db.query(User).filter(User.user_id == request.email).first()
+    existing = db.query(User).filter(User.user_id == request.username).first()
     if existing:
-        raise HTTPException(status_code=409, detail="이미 사용 중인 이메일입니다.")
+        raise HTTPException(status_code=409, detail="이미 사용 중인 아이디입니다.")
 
-    now_ms = int(time.time() * 1000)
+    delivery_json = None
+    if request.delivery_accounts:
+        delivery_json = json.dumps(
+            [a.model_dump() for a in request.delivery_accounts],
+            ensure_ascii=False
+        )
+
     user = User(
-        user_id=request.email,
-        email=request.email,
+        user_id=request.username,
         password_hash=hash_password(request.password),
+        name=request.name,
+        phone=request.phone,
+        birth_date=request.birth_date,
         device_id=request.device_id,
-        created_at=now_ms,
-        updated_at=now_ms,
+        delivery_accounts=delivery_json,
     )
     db.add(user)
     db.commit()
     db.refresh(user)
 
-    return TokenResponse(
-        access_token=create_access_token(user.user_id),
-        refresh_token=create_refresh_token(user.user_id),
-    )
+    return {
+        "access_token": create_access_token(user.user_id),
+        "refresh_token": create_refresh_token(user.user_id),
+        "token_type": "bearer",
+        "user": {
+            "username": user.user_id,
+            "name": user.name,
+        }
+    }
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post("/login")
 def login(request: LoginRequest, db: Session = Depends(get_db)):
     """
     로그인
-
-    - 이메일 + 비밀번호 검증
+    - username + 비밀번호 검증
     - access_token + refresh_token 반환
-    - device_id 전달 시 유저 정보에 반영
     """
-    user = db.query(User).filter(User.user_id == request.email).first()
+    user = db.query(User).filter(User.user_id == request.username).first()
     if not user or not verify_password(request.password, user.password_hash or ""):
-        raise HTTPException(status_code=401, detail="이메일 또는 비밀번호가 올바르지 않습니다.")
+        raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
 
-    # device_id 업데이트
     if request.device_id and user.device_id != request.device_id:
         user.device_id = request.device_id
         user.updated_at = int(time.time() * 1000)
         db.commit()
 
-    return TokenResponse(
-        access_token=create_access_token(user.user_id),
-        refresh_token=create_refresh_token(user.user_id),
-    )
+    return {
+        "access_token": create_access_token(user.user_id),
+        "refresh_token": create_refresh_token(user.user_id),
+        "token_type": "bearer",
+        "user": {
+            "username": user.user_id,
+            "name": user.name,
+        }
+    }
 
 
-@router.post("/refresh", response_model=TokenResponse)
+@router.post("/refresh")
 def refresh_tokens(request: RefreshRequest, db: Session = Depends(get_db)):
-    """
-    토큰 갱신
-
-    - refresh_token을 받아 새 access_token + refresh_token 발급
-    """
+    """토큰 갱신"""
     user_id = decode_token(request.refresh_token, "refresh")
     user = db.query(User).filter(User.user_id == user_id).first()
     if not user:
         raise HTTPException(status_code=401, detail="사용자를 찾을 수 없습니다.")
 
-    return TokenResponse(
-        access_token=create_access_token(user.user_id),
-        refresh_token=create_refresh_token(user.user_id),
-    )
+    return {
+        "access_token": create_access_token(user.user_id),
+        "refresh_token": create_refresh_token(user.user_id),
+        "token_type": "bearer",
+    }
 
 
 @router.get("/me", response_model=MeResponse)
 def get_me(current_user: User = Depends(get_current_user)):
-    """
-    내 정보 조회
-
-    - Authorization: Bearer <access_token> 헤더 필요
-    """
+    """내 정보 조회 (Authorization: Bearer <token>)"""
     return MeResponse(
         user_id=current_user.user_id,
-        email=current_user.email or current_user.user_id,
+        username=current_user.user_id,
+        name=current_user.name,
+        phone=current_user.phone,
+        birth_date=current_user.birth_date,
         device_id=current_user.device_id,
         current_license_type=current_user.current_license_type,
         current_license_expires_at=current_user.current_license_expires_at,
@@ -231,10 +253,5 @@ def get_me(current_user: User = Depends(get_current_user)):
 
 @router.post("/logout", status_code=204)
 def logout():
-    """
-    로그아웃
-
-    - 서버 사이드 세션 없음 (stateless JWT)
-    - 클라이언트에서 토큰을 삭제하세요.
-    """
+    """로그아웃 (stateless JWT — 클라이언트에서 토큰 삭제)"""
     return
