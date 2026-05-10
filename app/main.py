@@ -3,7 +3,6 @@ RiderVoiceAI Backend API - Main Entry Point
 """
 import os
 import time
-import asyncio
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -74,17 +73,7 @@ app.include_router(delivery_accounts.router)  # /api/v1/delivery-accounts
 
 @app.on_event("startup")
 async def startup_event():
-    """시작 시 이벤트 - 비동기로 DB 초기화 (health check 타임아웃 대응)"""
     try:
-        asyncio.create_task(run_init_db())
-    except Exception as e:
-        print(f"[ERROR] startup: init_db 시작 실패 - {e}")
-
-
-async def run_init_db():
-    """백그라운드에서 DB 초기화 실행"""
-    try:
-        await asyncio.sleep(2)
         init_db()
     except Exception as e:
         print(f"[ERROR] init_db 실패 - {e}")
