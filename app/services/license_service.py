@@ -182,17 +182,27 @@ class LicenseService:
             duration_ms = type_info["duration_hours"] * 60 * 60 * 1000
             expires_at = current_timestamp + duration_ms
 
-            license = License(
-                license_key=license_key,
-                license_type=type_code,
-                device_id=device_id,
-                issued_at=current_timestamp,
-                expires_at=expires_at,
-                is_active=True,
-                redeemed_at=current_timestamp,
-                redeemed_by_device=device_id
-            )
-            db.add(license)
+            license = db.query(License).filter(License.license_key == license_key).first()
+            if license:
+                # 기존 레코드 업데이트 (이전 오류로 is_active=False 상태인 경우)
+                license.device_id = device_id
+                license.issued_at = current_timestamp
+                license.redeemed_at = current_timestamp
+                license.redeemed_by_device = device_id
+                license.expires_at = expires_at
+                license.is_active = True
+            else:
+                license = License(
+                    license_key=license_key,
+                    license_type=type_code,
+                    device_id=device_id,
+                    issued_at=current_timestamp,
+                    expires_at=expires_at,
+                    is_active=True,
+                    redeemed_at=current_timestamp,
+                    redeemed_by_device=device_id
+                )
+                db.add(license)
             
             # 사용자 라이선스 상태 업데이트
             cls._update_user_license(db, device_id, type_code, expires_at)
