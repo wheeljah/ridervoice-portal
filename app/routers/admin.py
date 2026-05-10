@@ -167,7 +167,7 @@ def list_licenses(
                 "license_type": lic.license_type,
                 "is_active": lic.is_active,
                 "issued_at": lic.issued_at,
-                "activated_at": lic.activated_at,
+                "activated_at": lic.redeemed_at,
                 "expires_at": lic.expires_at,
                 "device_id": lic.device_id
             }
