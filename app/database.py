@@ -56,6 +56,8 @@ def init_db():
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ",
             # licenses 테이블 컬럼 추가
             "ALTER TABLE licenses ADD COLUMN IF NOT EXISTS redeemed_by_device VARCHAR",
+            # redemption_logs 테이블 컬럼 추가
+            "ALTER TABLE redemption_logs ADD COLUMN IF NOT EXISTS error_message TEXT",
         ]
         with engine.connect() as conn:
             for sql in migrations:
