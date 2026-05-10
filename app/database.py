@@ -8,23 +8,16 @@ from app.config import get_settings
 
 settings = get_settings()
 
-# DEBUG: 실제 DATABASE_URL 확인
-print(f"[DEBUG] Final DATABASE_URL: {settings.DATABASE_URL}")
-print(f"[DEBUG] is_postgres: {settings.is_postgres}")
-
 if settings.is_postgres:
-    print(f"[DEBUG] Creating PostgreSQL engine with pool settings...")
     engine = create_engine(
         settings.DATABASE_URL,
         pool_size=settings.DB_POOL_SIZE,
         max_overflow=settings.DB_MAX_OVERFLOW,
         pool_timeout=settings.DB_POOL_TIMEOUT,
         pool_recycle=settings.DB_POOL_RECYCLE,
-        pool_pre_ping=True,  # 끊어진 커넥션 자동 감지
+        pool_pre_ping=True,
     )
 else:
-    print(f"[DEBUG] Creating SQLite engine (fallback mode)...")
-    # 로컬 개발용 SQLite fallback
     engine = create_engine(
         settings.DATABASE_URL,
         connect_args={"check_same_thread": False},
@@ -48,28 +41,27 @@ def init_db():
     """Initialize database tables"""
     Base.metadata.create_all(bind=engine)
 
-    # 컬럼 마이그레이션
-    migrations = [
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_date VARCHAR",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS delivery_accounts TEXT",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_type VARCHAR",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_expires_at BIGINT",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_paused BOOLEAN DEFAULT FALSE",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_start_time BIGINT",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_end_time BIGINT",
-        "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ",
-        # created_at/updated_at 이 INTEGER로 생성된 경우 TIMESTAMPTZ로 변환
-        "ALTER TABLE users ALTER COLUMN created_at TYPE TIMESTAMPTZ USING to_timestamp(created_at::DOUBLE PRECISION / 1000)",
-        "ALTER TABLE users ALTER COLUMN updated_at TYPE TIMESTAMPTZ USING to_timestamp(updated_at::DOUBLE PRECISION / 1000)",
-    ]
-    with engine.connect() as conn:
-        for sql in migrations:
-            try:
-                conn.execute(text(sql))
-                print(f"[MIGRATION] OK: {sql}")
-            except Exception as e:
-                print(f"[MIGRATION] SKIP: {sql} → {e}")
-        conn.commit()
-    print("[DEBUG] run_init_db: migration 완료")
+    # 컬럼 마이그레이션 (PostgreSQL 전용)
+    if settings.is_postgres:
+        migrations = [
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_date VARCHAR",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS delivery_accounts TEXT",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_type VARCHAR",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS current_license_expires_at BIGINT",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_paused BOOLEAN DEFAULT FALSE",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_start_time BIGINT",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS pause_end_time BIGINT",
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ",
+            # licenses 테이블 컬럼 추가
+            "ALTER TABLE licenses ADD COLUMN IF NOT EXISTS redeemed_by_device VARCHAR",
+        ]
+        with engine.connect() as conn:
+            for sql in migrations:
+                try:
+                    conn.execute(text(sql))
+                except Exception as e:
+                    print(f"[MIGRATION] SKIP: {sql[:60]}… → {e}")
+            conn.commit()
+    print("[DB] init_db 완료")
