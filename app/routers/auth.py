@@ -205,7 +205,7 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
     if request.device_id and user.device_id != request.device_id:
         user.device_id = request.device_id
-        user.updated_at = int(time.time() * 1000)
+        user.updated_at = datetime.now(timezone.utc)
         db.commit()
 
     return {
@@ -247,7 +247,7 @@ def get_me(current_user: User = Depends(get_current_user)):
         current_license_type=current_user.current_license_type,
         current_license_expires_at=current_user.current_license_expires_at,
         is_paused=current_user.is_paused or False,
-        created_at=current_user.created_at,
+        created_at=int(current_user.created_at.timestamp() * 1000) if current_user.created_at else 0,
     )
 
 
