@@ -58,6 +58,7 @@ def init_db():
             "ALTER TABLE licenses ADD COLUMN IF NOT EXISTS redeemed_by_device VARCHAR",
             # redemption_logs 테이블 컬럼 추가
             "ALTER TABLE redemption_logs ADD COLUMN IF NOT EXISTS error_message TEXT",
+            "ALTER TABLE redemption_logs ALTER COLUMN created_at TYPE BIGINT",
         ]
         with engine.connect() as conn:
             for sql in migrations:
