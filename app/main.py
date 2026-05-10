@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.database import init_db
-from app.routers import licenses, coupons, prices, admin, health, notifications, demo, tracking, auth
+from app.routers import licenses, coupons, prices, admin, health, notifications, demo, tracking, auth, delivery_accounts
 from app.schemas import HealthResponse, ErrorResponse
 from app.config import get_settings
 
@@ -69,6 +69,7 @@ app.include_router(admin.router)       # /api/v1/admin
 app.include_router(notifications.router) # /api/notifications
 app.include_router(demo.router)          # /api/v1/demo
 app.include_router(tracking.router)     # /api/v1/tracking
+app.include_router(delivery_accounts.router)  # /api/v1/delivery-accounts
 
 
 @app.on_event("startup")
