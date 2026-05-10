@@ -20,6 +20,7 @@ class LicenseService:
         # 일간 사용권
         "LD1": {"name": "1일", "duration_hours": 1 * 24, "is_coupon": False},
         "LD3": {"name": "3일", "duration_hours": 3 * 24, "is_coupon": False},
+        "LD5": {"name": "5일", "duration_hours": 5 * 24, "is_coupon": False},
         "LD7": {"name": "7일", "duration_hours": 7 * 24, "is_coupon": False},
         "LD10": {"name": "10일", "duration_hours": 10 * 24, "is_coupon": False},
         # 월간 사용권
