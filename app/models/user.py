@@ -1,7 +1,8 @@
 """
 User model for RiderVoice AI Backend
 """
-from sqlalchemy import Column, Integer, String, Boolean, BigInteger, Text
+from sqlalchemy import Column, Integer, String, Boolean, BigInteger, Text, DateTime
+from datetime import datetime, timezone
 from app.database import Base
 
 
@@ -9,7 +10,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(String(100), unique=True, nullable=False, index=True)  # username
+    user_id = Column(String(100), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=True)
     device_id = Column(String(100), nullable=True, index=True)
 
@@ -23,22 +24,21 @@ class User(Base):
 
     # License info
     current_license_type = Column(String(20), nullable=True)
-    current_license_expires_at = Column(BigInteger, nullable=True)
+    current_license_expires_at = Column(BigInteger, nullable=True)  # 밀리초 유지
 
     # Pause info
     is_paused = Column(Boolean, default=False)
     pause_start_time = Column(BigInteger, nullable=True)
     pause_end_time = Column(BigInteger, nullable=True)
 
-    # Timestamps
-    created_at = Column(BigInteger, nullable=False)
-    updated_at = Column(BigInteger, nullable=False)
+    # Timestamps — DateTime으로 저장, API 응답 시 밀리초로 변환
+    created_at = Column(DateTime(timezone=True), nullable=False)
+    updated_at = Column(DateTime(timezone=True), nullable=False)
 
     def __init__(self, **kwargs):
-        import time
-        current_time = int(time.time() * 1000)
+        now = datetime.now(timezone.utc)
         if 'created_at' not in kwargs:
-            kwargs['created_at'] = current_time
+            kwargs['created_at'] = now
         if 'updated_at' not in kwargs:
-            kwargs['updated_at'] = current_time
+            kwargs['updated_at'] = now
         super().__init__(**kwargs)
