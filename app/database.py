@@ -64,4 +64,3 @@ def init_db():
                 except Exception as e:
                     print(f"[MIGRATION] SKIP: {sql[:60]}… → {e}")
             conn.commit()
-    print("[DB] init_db 완료")

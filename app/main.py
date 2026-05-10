@@ -74,29 +74,20 @@ app.include_router(delivery_accounts.router)  # /api/v1/delivery-accounts
 
 @app.on_event("startup")
 async def startup_event():
-    """시작 시 이벤트 - 비동기로 DB 초기화 (Leapcell health check 타임아웃 대응)"""
-    print("[DEBUG] startup_event: 비동기 init_db() 시작")
+    """시작 시 이벤트 - 비동기로 DB 초기화 (health check 타임아웃 대응)"""
     try:
-        # 백그라운드에서 DB 초기화 실행 (startup 완료를 블로킹하지 않음)
         asyncio.create_task(run_init_db())
-        print("[DEBUG] startup_event: init_db() 태스크 시작됨 (백그라운드)")
     except Exception as e:
-        print(f"[ERROR] startup_event: init_db() 시작 실패 - {str(e)}")
-        import traceback
-        traceback.print_exc()
+        print(f"[ERROR] startup: init_db 시작 실패 - {e}")
 
 
 async def run_init_db():
     """백그라운드에서 DB 초기화 실행"""
     try:
-        # 잠시 대기 후 DB 초기화 (서버가 먼저 health check에 응답할 수 있게)
         await asyncio.sleep(2)
         init_db()
-        print("[DEBUG] run_init_db: init_db() 완료")
     except Exception as e:
-        print(f"[ERROR] run_init_db: init_db() 실패 - {str(e)}")
-        import traceback
-        traceback.print_exc()
+        print(f"[ERROR] init_db 실패 - {e}")
 
 
 @app.get("/", response_model=HealthResponse)
