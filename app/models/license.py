@@ -16,6 +16,7 @@ class License(Base):
     # Timestamps
     issued_at = Column(BigInteger, nullable=False)
     redeemed_at = Column(BigInteger, nullable=True)
+    redeemed_by_device = Column(String(100), nullable=True)
     expires_at = Column(BigInteger, nullable=True)
     
     # Status

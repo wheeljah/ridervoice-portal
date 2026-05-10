@@ -58,12 +58,13 @@ def get_license_status(
 @router.post("/validate", response_model=LicenseValidateResponse)
 def validate_license_key(
     request: LicenseValidateRequest,
+    db: Session = Depends(get_db),
     api_key: str = Depends(verify_api_key)
 ):
     """
     라이선스 키 검증
-    
-    라이선스 키의 유효성을 검증합니다.
-    (데이터베이스 조회 없이 서명만 검증)
+
+    라이선스 키의 유효성을 DB에서 확인합니다.
+    (존재 여부 및 사용 여부 포함)
     """
-    return LicenseService.validate_license_key(request.license_key)
+    return LicenseService.validate_license_key(request.license_key, db)

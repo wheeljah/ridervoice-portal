@@ -1,21 +1,15 @@
 """
 RiderVoiceAI Backend License Service
 """
-import hashlib
-import hmac
-import base64
 import time
-from typing import Optional, Tuple
+from typing import Optional
 from sqlalchemy.orm import Session
-from app.config import get_settings
 from app.models import License, Coupon, User, RedemptionLog
 from app.schemas import (
     LicenseRedeemRequest, LicenseRedeemResponse,
     LicenseStatusResponse, LicenseValidateRequest, LicenseValidateResponse,
     CouponRedeemRequest, CouponRedeemResponse
 )
-
-settings = get_settings()
 
 
 class LicenseService:
@@ -56,89 +50,62 @@ class LicenseService:
         info = cls.get_type_info(type_code)
         return info.get("is_coupon", False) if info else False
     
-    @staticmethod
-    def generate_signature(type_code: str, timestamp: int) -> str:
-        """시그니처 생성"""
-        data = f"{type_code}:{timestamp}:{settings.LICENSE_SECRET_KEY}"
-        digest = hashlib.sha256(data.encode()).digest()
-        return digest[:8].hex().upper()
-    
-    @staticmethod
-    def verify_signature(license_key: str) -> bool:
-        """라이선스 키 서명 검증"""
-        try:
-            parts = license_key.split("-")
-            if len(parts) != 3:
-                return False
-            
-            type_code, timestamp_str, provided_sig = parts
-            timestamp = int(timestamp_str)
-            
-            expected_sig = LicenseService.generate_signature(type_code, timestamp)
-            return hmac.compare_digest(expected_sig, provided_sig)
-        except Exception:
-            return False
-    
-    @staticmethod
-    def parse_license_key(license_key: str) -> Optional[Tuple[str, int, str]]:
-        """라이선스 키 파싱"""
-        try:
-            parts = license_key.split("-")
-            if len(parts) != 3:
-                return None
-            
-            type_code, timestamp_str, signature = parts
-            timestamp = int(timestamp_str)
-            
-            return type_code, timestamp, signature
-        except Exception:
-            return None
-    
     @classmethod
-    def validate_license_key(cls, license_key: str) -> LicenseValidateResponse:
-        """라이선스 키 검증"""
-        # 파싱
-        parsed = cls.parse_license_key(license_key)
-        if not parsed:
+    def validate_license_key(cls, license_key: str, db: Session) -> LicenseValidateResponse:
+        """라이선스 키 검증 (DB 조회 기반)"""
+        # 포맷 체크: {type_code}-{random_token}
+        parts = license_key.split("-")
+        if len(parts) < 2:
             return LicenseValidateResponse(
                 valid=False,
                 error_message="잘못된 라이선스 형식입니다"
             )
-        
-        type_code, timestamp, signature = parsed
-        
-        # 유형 확인
+
+        type_code = parts[0]
         type_info = cls.get_type_info(type_code)
         if not type_info:
             return LicenseValidateResponse(
                 valid=False,
                 error_message="알 수 없는 라이선스 유형입니다"
             )
-        
-        # 쿠폰 유효기간 체크 (발급 후 1년)
-        if type_info["is_coupon"]:
-            current_timestamp = int(time.time())
-            coupon_expiry = timestamp + (365 * 24 * 60 * 60)
-            if current_timestamp > coupon_expiry:
+
+        is_coupon = type_info["is_coupon"]
+        now_ms = int(time.time() * 1000)
+
+        if is_coupon:
+            record = db.query(Coupon).filter(Coupon.coupon_code == license_key).first()
+            if not record:
                 return LicenseValidateResponse(
                     valid=False,
-                    license_type=type_code,
-                    is_coupon=True,
+                    error_message="존재하지 않는 라이선스 키입니다"
+                )
+            if record.is_redeemed:
+                return LicenseValidateResponse(
+                    valid=False, license_type=type_code, is_coupon=True,
+                    error_message="이미 사용된 쿠폰입니다"
+                )
+            if record.expires_at and now_ms > record.expires_at:
+                return LicenseValidateResponse(
+                    valid=False, license_type=type_code, is_coupon=True,
                     error_message="쿠폰이 만료되었습니다"
                 )
-        
-        # 시그니처 검증
-        if not cls.verify_signature(license_key):
-            return LicenseValidateResponse(
-                valid=False,
-                license_type=type_code,
-                error_message="서명 검증에 실패했습니다"
-            )
-        
+        else:
+            record = db.query(License).filter(License.license_key == license_key).first()
+            if not record:
+                return LicenseValidateResponse(
+                    valid=False,
+                    error_message="존재하지 않는 라이선스 키입니다"
+                )
+            if record.is_active:
+                return LicenseValidateResponse(
+                    valid=False, license_type=type_code,
+                    error_message="이미 사용된 라이선스입니다"
+                )
+
         return LicenseValidateResponse(
             valid=True,
             license_type=type_code,
-            is_coupon=type_info["is_coupon"],
+            is_coupon=is_coupon,
             duration_hours=type_info["duration_hours"]
         )
     
@@ -153,8 +120,8 @@ class LicenseService:
         license_key = request.license_key
         device_id = request.device_id
         
-        # 키 검증
-        validation = cls.validate_license_key(license_key)
+        # 키 검증 (DB 조회)
+        validation = cls.validate_license_key(license_key, db)
         if not validation.valid:
             cls._log_redemption(db, license_key, "", device_id, False, validation.error_message, ip_address)
             return LicenseRedeemResponse(
@@ -164,15 +131,6 @@ class LicenseService:
         
         type_code = validation.license_type
         type_info = cls.get_type_info(type_code)
-        
-        # 이미 사용된 키인지 확인
-        existing = db.query(License).filter(License.license_key == license_key).first()
-        if existing and existing.is_active:
-            cls._log_redemption(db, license_key, type_code, device_id, False, "이미 사용된 라이선스입니다", ip_address)
-            return LicenseRedeemResponse(
-                success=False,
-                message="이미 사용된 라이선스입니다"
-            )
         
         if type_info["is_coupon"]:
             # 쿠폰 처리
@@ -222,26 +180,18 @@ class LicenseService:
             current_timestamp = int(time.time() * 1000)
             duration_ms = type_info["duration_hours"] * 60 * 60 * 1000
             expires_at = current_timestamp + duration_ms
-            
-            # 라이선스 생성 또는 업데이트
-            if existing:
-                existing.is_active = True
-                existing.redeemed_at = current_timestamp
-                existing.redeemed_by_device = device_id
-                existing.device_id = device_id
-                existing.expires_at = expires_at
-            else:
-                license = License(
-                    license_key=license_key,
-                    license_type=type_code,
-                    device_id=device_id,
-                    issued_at=int(time.time()),
-                    expires_at=expires_at,
-                    is_active=True,
-                    redeemed_at=int(time.time()),
-                    redeemed_by_device=device_id
-                )
-                db.add(license)
+
+            license = License(
+                license_key=license_key,
+                license_type=type_code,
+                device_id=device_id,
+                issued_at=current_timestamp,
+                expires_at=expires_at,
+                is_active=True,
+                redeemed_at=current_timestamp,
+                redeemed_by_device=device_id
+            )
+            db.add(license)
             
             # 사용자 라이선스 상태 업데이트
             cls._update_user_license(db, device_id, type_code, expires_at)
@@ -286,8 +236,7 @@ class LicenseService:
     def _update_user_license(db: Session, device_id: str, license_type: str, expires_at: int):
         """사용자 라이선스 상태 업데이트"""
         user = db.query(User).filter(User.device_id == device_id).first()
-        current_time = int(time.time() * 1000)
-        
+
         if user:
             user.current_license_type = license_type
             user.current_license_expires_at = expires_at
@@ -296,10 +245,11 @@ class LicenseService:
             user.pause_end_time = None
         else:
             user = User(
+                user_id=device_id,        # user_id는 NOT NULL/UNIQUE — device_id로 대체
                 device_id=device_id,
                 current_license_type=license_type,
                 current_license_expires_at=expires_at,
-                is_paused=False
+                is_paused=False,
             )
             db.add(user)
     
@@ -307,7 +257,7 @@ class LicenseService:
     def _update_user_pause(db: Session, device_id: str, pause_start: int, pause_end: int, coupon_type: str):
         """사용자 멈춤 상태 업데이트"""
         user = db.query(User).filter(User.device_id == device_id).first()
-        
+
         if user:
             user.is_paused = True
             user.pause_start_time = pause_start
@@ -315,11 +265,12 @@ class LicenseService:
             user.current_license_type = coupon_type
         else:
             user = User(
+                user_id=device_id,        # user_id는 NOT NULL/UNIQUE — device_id로 대체
                 device_id=device_id,
                 is_paused=True,
                 pause_start_time=pause_start,
                 pause_end_time=pause_end,
-                current_license_type=coupon_type
+                current_license_type=coupon_type,
             )
             db.add(user)
     

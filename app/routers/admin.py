@@ -1,7 +1,7 @@
 """
 RiderVoiceAI Backend API Routers - Admin Endpoints
 """
-import hashlib
+import secrets
 import time
 from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, Depends, HTTPException, Header, Query
@@ -48,13 +48,6 @@ def verify_admin_key(x_admin_key: str = Header(..., alias="X-Admin-Key")):
     return x_admin_key
 
 
-def generate_signature(type_code: str, timestamp: int) -> str:
-    """시그니처 생성"""
-    data = f"{type_code}:{timestamp}:{settings.SECRET_KEY}"
-    digest = hashlib.sha256(data.encode()).digest()
-    return digest[:8].hex().upper()
-
-
 @router.post("/keys/generate")
 def generate_license_keys(
     request: GenerateKeysRequest,
@@ -86,30 +79,29 @@ def generate_license_keys(
 
     # 키 생성
     keys = []
+    now_ms = int(time.time() * 1000)
 
-    for i in range(quantity):
-        timestamp = int(time.time()) + i
-        signature = generate_signature(license_type, timestamp)
-        license_key = f"{license_type}-{timestamp}-{signature}"
+    for _ in range(quantity):
+        token = secrets.token_hex(12).upper()          # 24자리 랜덤 hex
+        license_key = f"{license_type}-{token}"        # e.g. LM1-A3F8C2E1D4B7F90213C6
+
         keys.append(license_key)
 
         # DB에 저장
         if license_type.startswith("PAU"):
-            # 쿠폰
             coupon = Coupon(
                 coupon_code=license_key,
                 coupon_type=license_type,
-                issued_at=timestamp * 1000,
-                expires_at=(timestamp + 365 * 24 * 60 * 60) * 1000,
+                issued_at=now_ms,
+                expires_at=now_ms + (365 * 24 * 60 * 60 * 1000),  # 1년 유효
                 is_redeemed=False
             )
             db.add(coupon)
         else:
-            # 사용권
             license = License(
                 license_key=license_key,
                 license_type=license_type,
-                issued_at=timestamp,
+                issued_at=now_ms,
                 is_active=False
             )
             db.add(license)

@@ -13,9 +13,6 @@ class Settings(BaseSettings):
     # Leapcell 대시보드 > Database > Connection String 값을 환경변수로 설정
     DATABASE_URL: str = "sqlite:///./app.db"
 
-    # DEBUG: 환경변수 로드 확인
-    print(f"[DEBUG] DATABASE_URL env var: {os.getenv('DATABASE_URL', 'NOT SET')}")
-
     # ===== Connection Pool (PostgreSQL) =====
     DB_POOL_SIZE: int = 5
     DB_MAX_OVERFLOW: int = 10
@@ -47,9 +44,7 @@ class Settings(BaseSettings):
 
     @property
     def is_postgres(self) -> bool:
-        result = self.DATABASE_URL.startswith("postgresql")
-        print(f"[DEBUG] is_postgres check: DATABASE_URL='{self.DATABASE_URL[:50]}...', result={result}")
-        return result
+        return self.DATABASE_URL.startswith("postgresql")
 
 
 @lru_cache()
