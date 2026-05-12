@@ -44,6 +44,7 @@ def init_db():
     # 컬럼 마이그레이션 (PostgreSQL 전용)
     if settings.is_postgres:
         migrations = [
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255)",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS name VARCHAR",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS birth_date VARCHAR",
