@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RiderVoice AI ???¼ì´???¬í„¸</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0a0b0d;
+  --bg2:          #111318;
+  --bg3:          #181c22;
+  --bg4:          #1e2330;
+  --border:       #252a33;
+  --border-b:     #353d4a;
+  --accent:       #f97316;
+  --accent2:      #fb923c;
+  --accent-dim:   rgba(249,115,22,.12);
+  --accent-glow:  rgba(249,115,22,.35);
+  --green:        #22c55e;
+  --green-dim:    rgba(34,197,94,.12);
+  --red:          #ef4444;
+  --red-dim:      rgba(239,68,68,.12);
+  --blue:         #3b82f6;
+  --blue-dim:     rgba(59,130,246,.12);
+  --yellow:       #eab308;
+  --purple:       #a855f7;
+  --text:         #e2e8f0;
+  --text2:        #94a3b8;
+  --text3:        #4b5563;
+  --ff-d: 'Rajdhani', sans-serif;
+  --ff-b: 'Noto Sans KR', sans-serif;
+  --ff-m: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-b);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249,115,22,.07) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.015) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.015) 40px);
+  pointer-events: none; z-index: 0;
+}
+
+/* ?€?€ ANIMATIONS ?€?€ */
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse   { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes slideR  { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@keyframes slideL  { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes floatChar {
+  0%,100% { transform: translateY(0px) rotate(-2deg); }
+  50%      { transform: translateY(-12px) rotate(2deg); }
+}
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 8px rgba(249,115,22,.4)); }
+  50%      { filter: drop-shadow(0 0 20px rgba(249,115,22,.8)); }
+}
+@keyframes slideInChar {
+  from { opacity:0; transform: translateX(60px) translateY(20px) scale(.8); }
+  to   { opacity:1; transform: translateX(0) translateY(0) scale(1); }
+}
+
+/* ?€?€ BUTTONS ?€?€ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 10px 20px; border-radius: 5px;
+  font-size: 13px; font-family: var(--ff-m); font-weight: 500;
+  letter-spacing: .5px; border: 1px solid transparent;
+  cursor: pointer; transition: all .15s; text-transform: uppercase; white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #000; border-color: var(--accent); }
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 20px var(--accent-glow); }
+.btn-ghost { background: transparent; color: var(--text2); border-color: var(--border-b); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text3); background: rgba(255,255,255,.05); }
+.btn-danger { background: var(--red-dim); color: var(--red); border-color: rgba(239,68,68,.3); }
+.btn-danger:hover { background: rgba(239,68,68,.2); }
+.btn-success { background: var(--green-dim); color: var(--green); border-color: rgba(34,197,94,.3); }
+.btn-success:hover { background: rgba(34,197,94,.2); }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.btn.loading { pointer-events: none; }
+.btn.loading::after {
+  content: ''; display: inline-block; width: 12px; height: 12px;
+  border: 2px solid currentColor; border-right-color: transparent;
+  border-radius: 50%; animation: spin .6s linear infinite;
+}
+.btn-lg { padding: 13px 28px; font-size: 14px; }
+.btn-sm { padding: 6px 12px; font-size: 11px; }
+
+/* ?€?€ FORM CONTROLS ?€?€ */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text3); font-family: var(--ff-m);
+}
+input, select {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 5px;
+  color: var(--text); font-family: var(--ff-m); font-size: 13px;
+  padding: 10px 14px; outline: none; transition: border-color .15s, box-shadow .15s; width: 100%;
+}
+input::placeholder { color: var(--text3); }
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+input.err-input { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-dim); }
+select option { background: var(--bg2); }
+.input-row { display: flex; gap: 10px; }
+.input-row .field { flex: 1; }
+
+/* ?€?€ BADGE ?€?€ */
+.badge {
+  display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 3px;
+  font-size: 10px; font-family: var(--ff-m); font-weight: 500;
+  letter-spacing: .5px; text-transform: uppercase;
+}
+.badge-green  { background: var(--green-dim); color: var(--green);   border: 1px solid rgba(34,197,94,.25); }
+.badge-red    { background: var(--red-dim);   color: var(--red);     border: 1px solid rgba(239,68,68,.25); }
+.badge-orange { background: var(--accent-dim);color: var(--accent);  border: 1px solid rgba(249,115,22,.25); }
+.badge-blue   { background: var(--blue-dim);  color: var(--blue);    border: 1px solid rgba(59,130,246,.25); }
+.badge-purple { background: rgba(168,85,247,.12); color: var(--purple); border: 1px solid rgba(168,85,247,.25); }
+
+/* ?€?€ ALERT ?€?€ */
+.alert { display: none; padding: 10px 14px; border-radius: 5px; font-size: 12px; font-family: var(--ff-m); }
+.alert.show { display: block; animation: fadeIn .2s; }
+.alert-success { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+.alert-error   { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,.25); }
+.alert-info    { background: var(--blue-dim);  color: var(--blue);  border: 1px solid rgba(59,130,246,.25); }
+
+/* ?€?€ DIVIDER ?€?€ */
+.divider { border: none; border-top: 1px solid var(--border); }
+.divider-text {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; color: var(--text3); font-family: var(--ff-m);
+}
+.divider-text::before, .divider-text::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
+
+/* ?â•??AUTH SCREENS ?â•??*/
+.auth-wrap {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 32px 16px; position: relative; z-index: 1;
+}
+
+/* ?€?€ ë²ˆê°œ??ìºë¦­??(login only) ?€?€ */
+.char-mascot {
+  position: fixed;
+  right: 0; bottom: 0;
+  width: min(340px, 42vw);
+  pointer-events: none;
+  z-index: 2;
+  animation: slideInChar .8s .3s cubic-bezier(.22,1,.36,1) both;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  /* ì»¨í…Œ?´ë„ˆ?ë„ ë¸”ë Œ???ìš© */
+  mix-blend-mode: lighten;
+}
+.char-mascot img {
+  width: 100%; height: auto;
+  animation: floatChar 4s ease-in-out infinite, glow 3s ease-in-out infinite;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  display: block;
+  /* ê²€??ë°°ê²½ ?¬ê°???œê±°: ê²€??#000)ë³´ë‹¤ ë°ì? ?½ì?ë§??œì‹œ */
+  mix-blend-mode: lighten;
+  filter:
+    drop-shadow(0 0 14px rgba(249,115,22,.55))
+    drop-shadow(0 0 28px rgba(249,115,22,.28));
+}
+@media (max-width: 600px) {
+  .char-mascot {
+    width: 52vw;
+    right: -4px; bottom: 0;
+    opacity: .85;
+  }
+}
+
+.auth-card {
+  width: 100%; max-width: 420px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+  animation: fadeUp .4s ease-out;
+  position: relative; z-index: 3;
+}
+
+.auth-head {
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,.2);
+  text-align: center;
+}
+.auth-logo {
+  font-family: var(--ff-d); font-size: 26px; font-weight: 700;
+  letter-spacing: 3px; color: var(--accent); text-transform: uppercase; line-height: 1; margin-bottom: 4px;
+}
+.auth-logo span { color: var(--text3); }
+.auth-sub { font-size: 10px; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; font-family: var(--ff-m); }
+.auth-body { padding: 28px; }
+
+/* Step progress */
+.step-progress { display: flex; align-items: center; margin-bottom: 28px; gap: 0; }
+.step-dot {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-family: var(--ff-m); font-weight: 500;
+  border: 2px solid var(--border); background: var(--bg); color: var(--text3); transition: all .3s;
+}
+.step-dot.active  { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.step-dot.done    { border-color: var(--green);  background: var(--green-dim);  color: var(--green); }
+.step-line { flex: 1; height: 2px; background: var(--border); transition: background .3s; }
+.step-line.done { background: var(--green); }
+
+.step-panel { display: none; }
+.step-panel.active { display: block; animation: slideR .25s ease-out; }
+.step-panel.go-back { animation: slideL .25s ease-out; }
+.step-title { font-family: var(--ff-d); font-size: 18px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
+.step-desc { font-size: 12px; color: var(--text3); margin-bottom: 20px; line-height: 1.6; }
+.form-gap { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+
+/* DELIVERY CARD */
+.delivery-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.delivery-card {
+  background: var(--bg); border: 2px solid var(--border); border-radius: 8px;
+  padding: 16px; cursor: pointer; transition: all .2s; text-align: center;
+  position: relative; overflow: hidden;
+}
+.delivery-card:hover { border-color: var(--border-b); background: var(--bg3); }
+.delivery-card.selected { border-color: var(--accent); background: var(--accent-dim); }
+.delivery-card .dc-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+.delivery-card .dc-name { font-family: var(--ff-d); font-size: 15px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.delivery-card .dc-sub { font-size: 10px; color: var(--text3); font-family: var(--ff-m); margin-top: 2px; }
+.delivery-card.baemin .dc-name { color: #00aff0; }
+.delivery-card.coupang .dc-name { color: #e8342f; }
+.delivery-card input[type="radio"] { display: none; }
+
+.delivery-linked {
+  background: var(--bg); border: 1px solid var(--border-b); border-radius: 8px;
+  padding: 14px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
+}
+.delivery-linked .dl-icon { font-size: 22px; flex-shrink: 0; }
+.delivery-linked .dl-info { flex: 1; }
+.delivery-linked .dl-platform { font-family: var(--ff-d); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
+.delivery-linked .dl-id { font-size: 11px; color: var(--text3); font-family: var(--ff-m); margin-top: 2px; }
+.delivery-linked .dl-badge { margin-left: auto; flex-shrink: 0; }
+
+/* ?â•??APP SHELL ?â•??*/
+.app-wrap { display: none; min-height: 100vh; position: relative; z-index: 1; }
+.app-wrap.active { display: flex; }
+
+.sidebar {
+  width: 230px; flex-shrink: 0;
+  background: var(--bg2); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--border); }
+.logo-mark { font-family: var(--ff-d); font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; line-height: 1; }
+.logo-sub { font-size: 10px; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; font-family: var(--ff-m); }
+
+.user-profile-mini { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent-dim); border: 2px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-d); font-size: 16px; font-weight: 700; color: var(--accent);
+}
+.user-info-mini .user-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.user-info-mini .user-id  { font-size: 10px; color: var(--text3); font-family: var(--ff-m); margin-top: 1px; }
+
+.nav { padding: 12px 0; flex: 1; }
+.nav-section { padding: 8px 16px 4px; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text3); font-family: var(--ff-m); margin-top: 8px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 20px;
+  cursor: pointer; color: var(--text2); font-size: 13px; font-weight: 400;
+  transition: all .15s; border-left: 3px solid transparent;
+}
+.nav-item:hover { color: var(--text); background: rgba(255,255,255,.04); }
+.nav-item.active { color: var(--accent); background: var(--accent-dim); border-left-color: var(--accent); }
+.nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+.status-row { display: flex; align-items: center; gap: 8px; }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--text3); transition: background .3s; }
+.status-dot.online  { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.status-dot.offline { background: var(--red); }
+.status-dot.pulse   { animation: pulse 1.5s ease-in-out infinite; }
+.status-label { font-size: 11px; color: var(--text2); font-family: var(--ff-m); flex: 1; }
+.btn-logout { font-size: 10px; padding: 4px 8px; }
+
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.topbar {
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 0 28px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.page-title { font-family: var(--ff-d); font-size: 20px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); }
+
+.content { padding: 28px; flex: 1; }
+.page { display: none; }
+.page.active { display: block; animation: fadeUp .2s ease-out; }
+
+.panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,.2);
+}
+.panel-head h2 { font-family: var(--ff-d); font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.panel-body { padding: 20px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px; display: flex; flex-direction: column;
+  gap: 8px; position: relative; overflow: hidden;
+}
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.stat-card .stat-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text3); font-family: var(--ff-m); }
+.stat-card .stat-val   { font-family: var(--ff-d); font-size: 30px; font-weight: 700; color: var(--text); line-height: 1; }
+.stat-card .stat-sub   { font-size: 11px; color: var(--text3); font-family: var(--ff-m); }
+
+.license-card {
+  border-radius: 8px; padding: 20px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--bg3) 0%, rgba(249,115,22,.04) 100%);
+  border: 1px solid var(--border-b);
+}
+.lc-icon { font-size: 36px; }
+.lc-info { flex: 1; min-width: 160px; }
+.lc-type { font-family: var(--ff-d); font-size: 22px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.lc-desc { font-size: 11px; color: var(--text2); font-family: var(--ff-m); margin-top: 4px; }
+.lc-meta { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+.lc-meta-item { font-size: 11px; color: var(--text3); font-family: var(--ff-m); }
+.lc-meta-item strong { color: var(--text2); }
+.lc-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+
+.delivery-account-item { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.delivery-account-item:last-child { border-bottom: none; padding-bottom: 0; }
+.dai-icon { font-size: 26px; flex-shrink: 0; }
+.dai-info { flex: 1; }
+.dai-name  { font-family: var(--ff-d); font-size: 15px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.dai-name.baemin  { color: #00aff0; }
+.dai-name.coupang { color: #e8342f; }
+.dai-id { font-size: 11px; color: var(--text3); font-family: var(--ff-m); margin-top: 3px; }
+.dai-status { flex-shrink: 0; margin-right: 8px; }
+.dai-actions { flex-shrink: 0; display: flex; gap: 6px; }
+
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.profile-grid.cols1 { grid-template-columns: 1fr; }
+
+/* ?€?€ MODAL ?€?€ */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; animation: fadeIn .2s; }
+.modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 0; width: 100%; max-width: 400px; margin: 16px; animation: fadeUp .25s ease-out; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+.modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+.modal-head h3 { font-family: var(--ff-d); font-size: 16px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.modal-close { width: 28px; height: 28px; border-radius: 4px; border: none; background: transparent; color: var(--text3); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.modal-close:hover { background: var(--red-dim); color: var(--red); }
+.modal-body { padding: 20px; }
+.modal-foot { padding: 0 20px 20px; display: flex; gap: 10px; }
+.modal-foot .btn { flex: 1; }
+
+/* ?€?€ HELP MODAL ?€?€ */
+.help-modal { max-width: 520px; }
+.help-section { margin-bottom: 20px; }
+.help-section h4 { font-family: var(--ff-d); font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.help-step { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.help-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-dim); border: 1px solid var(--accent); color: var(--accent); font-family: var(--ff-m); font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.help-text { font-size: 12px; color: var(--text2); font-family: var(--ff-b); line-height: 1.6; }
+.help-text strong { color: var(--text); }
+.help-tip { background: var(--accent-dim); border: 1px solid rgba(249,115,22,.2); border-radius: 6px; padding: 10px 14px; font-size: 11px; color: var(--accent2); font-family: var(--ff-m); margin-top: 8px; }
+
+.settings-field { margin-bottom: 16px; }
+.settings-note  { font-size: 11px; color: var(--text3); font-family: var(--ff-m); margin-top: 6px; line-height: 1.5; }
+
+/* ?€?€ TOAST ?€?€ */
+.toast-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 200; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+.toast {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 16px; font-size: 12px; font-family: var(--ff-m);
+  box-shadow: 0 8px 32px rgba(0,0,0,.4); animation: fadeUp .3s ease-out;
+  display: flex; align-items: center; gap: 10px; pointer-events: auto; min-width: 220px;
+}
+.toast.success { border-color: rgba(34,197,94,.4); color: var(--green); }
+.toast.error   { border-color: rgba(239,68,68,.4); color: var(--red); }
+.toast.info    { border-color: rgba(59,130,246,.4); color: var(--blue); }
+
+/* ?€?€ SCROLLBAR ?€?€ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-b); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ?€?€ MISC ?€?€ */
+.text-center { text-align: center; }
+.mt-4  { margin-top: 4px; }    .mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }   .mt-16 { margin-top: 16px; }
+.mb-4  { margin-bottom: 4px; } .mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.text-link { color: var(--accent); cursor: pointer; font-size: 12px; font-family: var(--ff-m); text-decoration: none; transition: color .15s; }
+.text-link:hover { color: var(--accent2); }
+.shimmer-text {
+  background: linear-gradient(90deg, var(--text2) 0%, var(--accent) 50%, var(--text2) 100%);
+  background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ?€?€ MOBILE RESPONSIVE ?€?€ */
+@media (max-width: 768px) {
+  .app-wrap.active { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--border); }
+  .logo, .user-profile-mini { display: none; }
+  .nav { display: flex; padding: 0; flex: none; width: 100%; overflow-x: auto; }
+  .nav-section { display: none; }
+  .nav-item { padding: 12px 14px; border-left: none; border-bottom: 3px solid transparent; font-size: 11px; white-space: nowrap; flex-direction: column; gap: 3px; }
+  .nav-item.active { border-bottom-color: var(--accent); border-left: none; }
+  .nav-icon { font-size: 18px; }
+  .sidebar-footer { width: 100%; padding: 8px 16px; }
+  .topbar { padding: 0 16px; }
+  .content { padding: 16px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .profile-grid { grid-template-columns: 1fr; }
+  .char-mascot { width: 52vw; right: 0; bottom: 0; }
+}
+@media (max-width: 480px) {
+  .auth-card { max-width: 100%; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .delivery-options { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ?â•??LOGIN VIEW ?â•??-->
+<div id="view-login" class="auth-wrap">
+  <!-- ë²ˆê°œ??ë§ˆì???ìºë¦­??-->
+  <div class="char-mascot" id="char-mascot" style="border:none;outline:none;box-shadow:none;background:transparent;padding:0;">
+    <img src="data:image/png;base64,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" alt="ë²ˆê°œ??ë§ˆì???ìºë¦­?? style="border:none!important;outline:none!important;box-shadow:none!important;background:transparent!important;display:block;">
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-head">
+      <div class="auth-logo">Rider<span>Voice</span></div>
+      <div class="auth-sub">AI Rider Portal Â· ?¼ì´???¬í„¸</div>
+    </div>
+    <div class="auth-body">
+      <div class="step-title">ë¡œê·¸??/div>
+      <div class="step-desc">?„ì´?”ì? ë¹„ë?ë²ˆí˜¸ë¥??…ë ¥?˜ì„¸??</div>
+      <div id="login-alert" class="alert mb-12"></div>
+      <div class="form-gap">
+        <div class="field">
+          <label>?„ì´??/label>
+          <input type="text" id="login-id" placeholder="?„ì´???…ë ¥" autocomplete="username">
+        </div>
+        <div class="field">
+          <label>ë¹„ë?ë²ˆí˜¸</label>
+          <input type="password" id="login-pw" placeholder="ë¹„ë?ë²ˆí˜¸ ?…ë ¥" autocomplete="current-password">
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" id="btn-login" onclick="doLogin()">ë¡œê·¸??/button>
+      <div class="divider-text mt-16 mb-12" style="font-size:11px;">?„ì§ ê³„ì •???†ìœ¼? ê???</div>
+      <button class="btn btn-ghost btn-block" onclick="showRegister()">?Œì›ê°€????/button>
+      <div class="mt-16" style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="text-link" onclick="openSettings()">???œë²„ ?¤ì •</span>
+        <span class="text-link" onclick="openHelp()">???¬ìš© ë°©ë²•</span>
+      </div>
+      <!-- ë²ˆê°œ??ë§ˆì???(Firelighter Marketing) -->
+      <div style="margin-top:24px;padding:14px 16px;border-radius:8px;background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(251,146,60,.06));border:1px solid rgba(249,115,22,.2);text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);font-family:var(--ff-d);letter-spacing:2px;margin-bottom:4px;">??ë²ˆê°œ??ë§ˆì???/div>
+        <div style="font-size:10px;letter-spacing:1.5px;color:var(--text3);font-family:var(--ff-m);margin-bottom:10px;">Firelighter Marketing</div>
+        <div style="font-size:12px;color:var(--text2);font-family:var(--ff-b);line-height:1.7;">
+          ë°°ë‹¬ ?¼ì´?”ì˜ ?˜ì…??ê·¹ë??”í•˜??br>
+          <span style="color:var(--accent);font-weight:600;">AI ?Œì„± ?ë™???”ë£¨??/span>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text3);font-family:var(--ff-m);letter-spacing:1px;">POWERED BY RIDERVOICE AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??REGISTER VIEW ?â•??-->
+<div id="view-register" class="auth-wrap" style="display:none;">
+  <div class="auth-card" style="max-width: 460px;">
+    <div class="auth-head">
+      <div class="auth-logo">Rider<span>Voice</span></div>
+      <div class="auth-sub">?Œì›ê°€??/div>
+    </div>
+    <div class="auth-body">
+      <div class="step-progress">
+        <div class="step-dot active" id="sdot-1">1</div>
+        <div class="step-line" id="sline-1"></div>
+        <div class="step-dot" id="sdot-2">2</div>
+        <div class="step-line" id="sline-2"></div>
+        <div class="step-dot" id="sdot-3">3</div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="step-panel active" id="step-1">
+        <div class="step-title">ê³„ì • ?•ë³´</div>
+        <div class="step-desc">ë¡œê·¸?¸ì— ?¬ìš©???„ì´?”ì? ë¹„ë?ë²ˆí˜¸ë¥??¤ì •?˜ì„¸??</div>
+        <div id="step1-alert" class="alert mb-12"></div>
+        <div class="form-gap">
+          <div class="field"><label>?„ì´??/label><input type="text" id="reg-id" placeholder="?ë¬¸/?«ì, 4~20?? autocomplete="username" oninput="clearFieldErr(this)"></div>
+          <div class="field"><label>ë¹„ë?ë²ˆí˜¸</label><input type="password" id="reg-pw" placeholder="8???´ìƒ, ?ë¬¸+?«ì" autocomplete="new-password" oninput="clearFieldErr(this)"></div>
+          <div class="field"><label>ë¹„ë?ë²ˆí˜¸ ?•ì¸</label><input type="password" id="reg-pw2" placeholder="ë¹„ë?ë²ˆí˜¸ ?¬ì…?? autocomplete="new-password" oninput="clearFieldErr(this)"></div>
+        </div>
+        <div class="flex-between mt-4">
+          <span class="text-link" onclick="showLogin()">??ë¡œê·¸?¸ìœ¼ë¡?/span>
+          <button class="btn btn-primary" onclick="step1Next()">?¤ìŒ ??/button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-panel" id="step-2">
+        <div class="step-title">ê°œì¸ ?•ë³´</div>
+        <div class="step-desc">?´ë¦„, ?´ë???ë²ˆí˜¸, ?ë…„?”ì¼???…ë ¥?˜ì„¸??</div>
+        <div id="step2-alert" class="alert mb-12"></div>
+        <div class="form-gap">
+          <div class="field"><label>?´ë¦„</label><input type="text" id="reg-name" placeholder="?¤ëª… ?…ë ¥" oninput="clearFieldErr(this)"></div>
+          <div class="field"><label>?´ë???ë²ˆí˜¸</label><input type="tel" id="reg-phone" placeholder="010-0000-0000" oninput="formatPhone(this);clearFieldErr(this)"></div>
+          <div class="field"><label>?ë…„?”ì¼</label><input type="text" id="reg-birth" placeholder="YYYYMMDD (?? 19900101)" maxlength="8" oninput="clearFieldErr(this)"></div>
+        </div>
+        <div class="flex-between mt-4">
+          <button class="btn btn-ghost" onclick="goStep(1)">???´ì „</button>
+          <button class="btn btn-primary" id="btn-step2-next" onclick="step2Next()">?¤ìŒ ??/button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-panel" id="step-3">
+        <div class="step-title">ë°°ë‹¬ ê³„ì • ?°ë™</div>
+        <div class="step-desc">ë°°ë‹¬ ?Œë«??ê³„ì •??ë¯¸ë¦¬ ?°ë™?´ë‘ë©??˜ìµ ê´€ë¦¬ê? ?¸ë¦¬?©ë‹ˆ??<br><span style="color:var(--accent);">?˜ì¤‘??ë§ˆì´?˜ì´ì§€?ì„œ???°ë™?????ˆìŠµ?ˆë‹¤.</span></div>
+        <div id="step3-alert" class="alert mb-12"></div>
+        <div class="delivery-options">
+          <label class="delivery-card baemin" id="dc-baemin" onclick="selectPlatform('baemin')">
+            <input type="radio" name="dc-platform" value="baemin">
+            <span class="dc-icon">?›µ</span>
+            <div class="dc-name">ë°°ë‹¬?˜ë?ì¡?/div>
+            <div class="dc-sub">ë°°ë? ?¼ì´?”ìŠ¤</div>
+          </label>
+          <label class="delivery-card coupang" id="dc-coupang" onclick="selectPlatform('coupang')">
+            <input type="radio" name="dc-platform" value="coupang">
+            <span class="dc-icon">?“¦</span>
+            <div class="dc-name">ì¿ íŒ¡?´ì¸ </div>
+            <div class="dc-sub">ì¿ íŒ¡?´ì¸  ?ŒíŠ¸??/div>
+          </label>
+        </div>
+        <div id="delivery-form" style="display:none;">
+          <div class="form-gap">
+            <div class="field"><label id="dc-id-label">ë°°ë? ?„ì´??/label><input type="text" id="dc-username" placeholder="ê³„ì • ?„ì´?? oninput="clearFieldErr(this)"></div>
+            <div class="field"><label id="dc-pw-label">ë°°ë? ë¹„ë?ë²ˆí˜¸</label><input type="password" id="dc-password" placeholder="ê³„ì • ë¹„ë?ë²ˆí˜¸" oninput="clearFieldErr(this)"></div>
+          </div>
+          <div id="dc-added-list" style="margin-bottom:12px;"></div>
+          <button class="btn btn-success btn-block mb-8" onclick="addDeliveryAccount()">????ê³„ì • ì¶”ê?</button>
+        </div>
+        <div class="flex-between mt-4">
+          <button class="btn btn-ghost" onclick="goStep(2)">???´ì „</button>
+          <button class="btn btn-primary" id="btn-complete" onclick="completeRegister()">ê°€???„ë£Œ ??/button>
+        </div>
+        <div class="mt-12 text-center">
+          <span class="text-link" onclick="completeRegister()">ë°°ë‹¬ ê³„ì • ?°ë™ ê±´ë„ˆ?°ê¸°</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??SETTINGS MODAL ?â•??-->
+<div class="modal-overlay" id="modal-settings">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>???œë²„ ?¤ì •</h3>
+      <button class="modal-close" onclick="closeModal('modal-settings')">??/button>
+    </div>
+    <div class="modal-body">
+      <div id="health-alert" class="alert mb-12"></div>
+      <div class="settings-field">
+        <div class="field"><label>ë°±ì—”??API URL</label><input type="text" id="cfg-url" placeholder="https://ridervoice-demo.vercel.app" readonly style="opacity:0.6;cursor:default;" title="?œë²„ URL?€ ?ë™?¼ë¡œ ?¤ì •?©ë‹ˆ??></div>
+        <div class="settings-note">RiderVoiceAI ë°±ì—”???œë²„ URL (?ë™ ?¤ì •??</div>
+      </div>
+      <div class="settings-field">
+        <div class="field"><label>API Key</label><input type="password" id="cfg-api" placeholder="? íƒ ?¬í•­"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-settings')">ì·¨ì†Œ</button>
+      <button class="btn btn-primary" onclick="saveSettings()">?€??&amp; ?°ê²° ?•ì¸</button>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??HELP MODAL ?â•??-->
+<div class="modal-overlay" id="modal-help">
+  <div class="modal help-modal" style="max-width:520px;">
+    <div class="modal-head">
+      <h3>??RiderVoice AI ?¬ìš© ë°©ë²•</h3>
+      <button class="modal-close" onclick="closeModal('modal-help')">??/button>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto;">
+
+      <div class="help-section">
+        <h4>?? ì²˜ìŒ ?œì‘?˜ê¸°</h4>
+        <div class="help-step">
+          <div class="help-num">1</div>
+          <div class="help-text"><strong>?œë²„ ?°ê²°</strong>: ?ë™?¼ë¡œ ?¤ì •?©ë‹ˆ?? ?°ê²° ?¤ë¥˜ ???€?œë³´???ë‹¨ "?”„ ?íƒœ ?•ì¸"???ŒëŸ¬ ?ê??´ë³´?¸ìš”.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">2</div>
+          <div class="help-text"><strong>?Œì›ê°€??/strong>: ?„ì´??ë¹„ë?ë²ˆí˜¸ ?¤ì • ??ê°œì¸?•ë³´ ?…ë ¥ ??ë°°ë‹¬ ?Œë«??ê³„ì • ?°ë™(? íƒ) ?œìœ¼ë¡?ì§„í–‰?©ë‹ˆ??</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">3</div>
+          <div class="help-text"><strong>ë¡œê·¸??/strong>: ê°€?…í•œ ?„ì´?”ì? ë¹„ë?ë²ˆí˜¸ë¡?ë¡œê·¸?¸í•©?ˆë‹¤. ?¤ìŒ ë°©ë¬¸ ???ë™ ë¡œê·¸?¸ë©?ˆë‹¤.</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h4>?”‘ ?¼ì´? ìŠ¤ ê´€ë¦?/h4>
+        <div class="help-step">
+          <div class="help-num">1</div>
+          <div class="help-text">ì¢Œì¸¡ ë©”ë‰´?ì„œ <strong>?¼ì´? ìŠ¤</strong>ë¥?? íƒ?˜ê±°???€?œë³´?œì˜ "?¼ì´? ìŠ¤ ?±ë¡" ë²„íŠ¼???„ë¥´?¸ìš”.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">2</div>
+          <div class="help-text">êµ¬ë§¤ ??ë°›ì? <strong>?¼ì´? ìŠ¤ ??/strong>(LM1-XXXXXXXX-XXXXXXXX ?•ì‹)ë¥??…ë ¥?˜ê³  ?±ë¡?©ë‹ˆ??</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">3</div>
+          <div class="help-text">?”ë°”?´ìŠ¤ ID???ë™?¼ë¡œ ?…ë ¥?©ë‹ˆ?? ?¼ì´? ìŠ¤?????”ë°”?´ìŠ¤??ê·€?ë©?ˆë‹¤.</div>
+        </div>
+        <div class="help-tip">?’¡ ?¼ì´? ìŠ¤ ?¼ì‹œ?•ì?ê°€ ?„ìš”?˜ë©´ "ì¿ í° ?ìš©" ??—??PAU1- ?•ì‹ ì¿ í°???¬ìš©?˜ì„¸??</div>
+      </div>
+
+      <div class="help-section">
+        <h4>?›µ ë°°ë‹¬ ê³„ì • ?°ë™</h4>
+        <div class="help-step">
+          <div class="help-num">1</div>
+          <div class="help-text">ì¢Œì¸¡ ë©”ë‰´ <strong>ë°°ë‹¬ ê³„ì •</strong> ??[+ ê³„ì • ?°ë™] ë²„íŠ¼???´ë¦­?©ë‹ˆ??</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">2</div>
+          <div class="help-text"><strong>ë°°ë‹¬?˜ë?ì¡?/strong> ?ëŠ” <strong>ì¿ íŒ¡?´ì¸ </strong> ?Œë«?¼ì„ ? íƒ ???´ë‹¹ ?„ì´??ë¹„ë?ë²ˆí˜¸ë¥??…ë ¥?©ë‹ˆ??</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">3</div>
+          <div class="help-text">?°ë™??ê³„ì •?€ ëª©ë¡?ì„œ ?•ì¸?˜ê±°???? œ?????ˆìŠµ?ˆë‹¤.</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h4>?« ì¿ í° ?¬ìš©</h4>
+        <div class="help-step">
+          <div class="help-num">1</div>
+          <div class="help-text">ì¢Œì¸¡ ë©”ë‰´ <strong>ì¿ í°</strong> ??—??ì¿ í° ì½”ë“œë¥??…ë ¥?©ë‹ˆ?? (PAU1- ?•ì‹: ?¼ì‹œ?•ì? ì¿ í°)</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">2</div>
+          <div class="help-text">?”ë°”?´ìŠ¤ ID ?•ì¸ ??[ì¿ í° ?ìš©] ë²„íŠ¼???„ë¥´ë©?ì¦‰ì‹œ ì²˜ë¦¬?©ë‹ˆ??</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h4>?‘¤ ???•ë³´ ?˜ì •</h4>
+        <div class="help-step">
+          <div class="help-num">1</div>
+          <div class="help-text">?´ë¦„, ?´ë???ë²ˆí˜¸ ?˜ì • ??<strong>?€??/strong> ë²„íŠ¼???´ë¦­?©ë‹ˆ??</div>
+        </div>
+        <div class="help-step">
+          <div class="help-num">2</div>
+          <div class="help-text">ë¹„ë?ë²ˆí˜¸ ë³€ê²????„ì¬ ë¹„ë?ë²ˆí˜¸?€ ??ë¹„ë?ë²ˆí˜¸(8???´ìƒ)ë¥??…ë ¥?˜ê³  ?€?¥í•©?ˆë‹¤.</div>
+        </div>
+      </div>
+
+      <div class="help-tip">?”¥ ë¬¸ì œê°€ ?ê¸°ë©??€?œë³´???ë‹¨ "?”„ ?íƒœ ?•ì¸"?¼ë¡œ ?œë²„ ?°ê²°???ê??˜ê±°?? ???œë²„ ?¤ì •?ì„œ URL???¤ì‹œ ?•ì¸?´ë³´?¸ìš”.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary btn-block" onclick="closeModal('modal-help')">?•ì¸</button>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??DELIVERY ACCOUNT MODAL ?â•??-->
+<div class="modal-overlay" id="modal-link">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>?”— ë°°ë‹¬ ê³„ì • ?°ë™</h3>
+      <button class="modal-close" onclick="closeModal('modal-link')">??/button>
+    </div>
+    <div class="modal-body">
+      <div id="link-alert" class="alert mb-12"></div>
+      <div class="delivery-options" style="margin-bottom:14px;">
+        <label class="delivery-card baemin" id="ml-baemin" onclick="selectModalPlatform('baemin')">
+          <input type="radio" name="ml-platform" value="baemin">
+          <span class="dc-icon">?›µ</span>
+          <div class="dc-name">ë°°ë‹¬?˜ë?ì¡?/div>
+          <div class="dc-sub">ë°°ë? ?¼ì´?”ìŠ¤</div>
+        </label>
+        <label class="delivery-card coupang" id="ml-coupang" onclick="selectModalPlatform('coupang')">
+          <input type="radio" name="ml-platform" value="coupang">
+          <span class="dc-icon">?“¦</span>
+          <div class="dc-name">ì¿ íŒ¡?´ì¸ </div>
+          <div class="dc-sub">ì¿ íŒ¡?´ì¸  ?ŒíŠ¸??/div>
+        </label>
+        <label class="delivery-card" id="ml-yogiyo" onclick="selectModalPlatform('yogiyo')" style="border-color:var(--border);">
+          <input type="radio" name="ml-platform" value="yogiyo">
+          <span class="dc-icon">?”</span>
+          <div class="dc-name">?”ê¸°??/div>
+          <div class="dc-sub">?”ê¸°???ŒëŸ¬??/div>
+        </label>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;">???™ì¼ ?Œë«??ê³„ì •???¬ëŸ¬ ê°?ì¶”ê? ê°€?¥í•©?ˆë‹¤</div>
+      <div id="modal-link-form" style="display:none;" class="form-gap">
+        <div class="field"><label id="ml-id-label">ê³„ì • ?„ì´??/label><input type="text" id="ml-username" placeholder="?„ì´??></div>
+        <div class="field"><label id="ml-pw-label">ê³„ì • ë¹„ë?ë²ˆí˜¸</label><input type="password" id="ml-password" placeholder="ë¹„ë?ë²ˆí˜¸"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-link')">ì·¨ì†Œ</button>
+      <button class="btn btn-success" id="btn-link-confirm" onclick="linkDeliveryAccount()">?°ë™?˜ê¸°</button>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??LICENSE REDEEM MODAL ?â•??-->
+<div class="modal-overlay" id="modal-license">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>?”‘ ?¼ì´? ìŠ¤ ?±ë¡</h3>
+      <button class="modal-close" onclick="closeModal('modal-license')">??/button>
+    </div>
+    <div class="modal-body">
+      <div id="lic-alert" class="alert mb-12"></div>
+      <div class="form-gap">
+        <div class="field"><label>?¼ì´? ìŠ¤ ??/label><input type="text" id="lic-key" placeholder="LM1-XXXXXXXX-XXXXXXXX"></div>
+        <div class="field"><label>?”ë°”?´ìŠ¤ ID</label><input type="text" id="lic-device" placeholder="?ë™ ?…ë ¥?©ë‹ˆ?? readonly></div>
+      </div>
+      <div style="font-size:11px;color:var(--text3);font-family:var(--ff-m);margin-top:6px;">?¼ì´? ìŠ¤ ?¤ëŠ” êµ¬ë§¤ ???´ë©”??ë¬¸ìë¡?ë°œì†¡?©ë‹ˆ??</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-license')">ì·¨ì†Œ</button>
+      <button class="btn btn-primary" onclick="redeemLicense()">?±ë¡?˜ê¸°</button>
+    </div>
+  </div>
+</div>
+
+<!-- ?â•??APP SHELL ?â•??-->
+<div class="app-wrap" id="view-app">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">RiderVoice</div>
+      <div class="logo-sub">AI Â· ?¼ì´???¬í„¸</div>
+    </div>
+    <div class="user-profile-mini">
+      <div class="avatar" id="app-avatar">R</div>
+      <div class="user-info-mini">
+        <div class="user-name" id="app-username">?¼ì´??/div>
+        <div class="user-id" id="app-userid">@id</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">??/div>
+      <div class="nav-item active" onclick="gotoPage('dashboard')"><span class="nav-icon">â¬?/span> ?€?œë³´??/div>
+      <div class="nav-section">?œë¹„??/div>
+      <div class="nav-item" onclick="gotoPage('license')"><span class="nav-icon">?”‘</span> ?¼ì´? ìŠ¤</div>
+      <div class="nav-item" onclick="gotoPage('delivery')"><span class="nav-icon">?›µ</span> ë°°ë‹¬ ê³„ì •</div>
+      <div class="nav-item" onclick="gotoPage('coupon')"><span class="nav-icon">?«</span> ì¿ í°</div>
+      <div class="nav-section">ê³„ì •</div>
+      <div class="nav-item" onclick="gotoPage('profile')"><span class="nav-icon">?‘¤</span> ???•ë³´</div>
+      <div class="nav-item" onclick="openSettings()"><span class="nav-icon">??/span> ?œë²„ ?¤ì •</div>
+      <div class="nav-item" onclick="openHelp()"><span class="nav-icon">??/span> ?„ì?ë§?/div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-row">
+        <span class="status-dot" id="app-dot"></span>
+        <span class="status-label" id="app-status">?•ì¸ ì¤?..</span>
+        <button class="btn btn-ghost btn-sm btn-logout" onclick="doLogout()">ë¡œê·¸?„ì›ƒ</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="page-title" id="app-page-title">?€?œë³´??/div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="btn btn-ghost btn-sm" onclick="openHelp()">???„ì?ë§?/button>
+        <button class="btn btn-ghost btn-sm" onclick="checkHealth()">?”„ ?íƒœ ?•ì¸</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="license-card" id="lic-card">
+          <div class="lc-icon">?”‘</div>
+          <div class="lc-info">
+            <div class="lc-type" id="lc-type">??/div>
+            <div class="lc-desc" id="lc-desc">?¼ì´? ìŠ¤ë¥??±ë¡?´ì£¼?¸ìš”</div>
+            <div class="lc-meta">
+              <div class="lc-meta-item">ë§Œë£Œ: <strong id="lc-exp">??/strong></div>
+              <div class="lc-meta-item">?”ë°”?´ìŠ¤: <strong id="lc-device-disp">??/strong></div>
+            </div>
+          </div>
+          <div class="lc-actions">
+            <span class="badge badge-orange" id="lc-status-badge">ë¯¸ë“±ë¡?/span>
+            <button class="btn btn-primary btn-sm mt-8" onclick="openModal('modal-license')">?”‘ ?¼ì´? ìŠ¤ ?±ë¡</button>
+          </div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">?¼ì´? ìŠ¤ ?”ì—¬</div>
+            <div class="stat-val" id="dash-days">??/div>
+            <div class="stat-sub">???¨ìŒ</div>
+          </div>
+          <div class="stat-card" style="--accent:var(--blue)">
+            <div class="stat-label">?°ë™ ë°°ë‹¬ ê³„ì •</div>
+            <div class="stat-val" id="dash-accounts">0</div>
+            <div class="stat-sub">ê°?/div>
+          </div>
+          <div class="stat-card" style="--accent:var(--green)">
+            <div class="stat-label">API ?‘ë‹µ</div>
+            <div class="stat-val" id="dash-ping">??/div>
+            <div class="stat-sub">ms</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>??ë¹ ë¥¸ ?¤í–‰</h2></div>
+          <div class="panel-body" style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="gotoPage('license')">?”‘ ?¼ì´? ìŠ¤ ê´€ë¦?/button>
+            <button class="btn btn-ghost" onclick="gotoPage('delivery')">?›µ ë°°ë‹¬ ê³„ì • ê´€ë¦?/button>
+            <button class="btn btn-ghost" onclick="gotoPage('coupon')">?« ì¿ í° ?ìš©</button>
+            <button class="btn btn-ghost" onclick="gotoPage('profile')">?‘¤ ???•ë³´ ?˜ì •</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LICENSE PAGE -->
+      <div class="page" id="page-license">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>?”‘ ???¼ì´? ìŠ¤</h2>
+            <button class="btn btn-primary btn-sm" onclick="openModal('modal-license')">+ ?¼ì´? ìŠ¤ ?±ë¡</button>
+          </div>
+          <div class="panel-body">
+            <div id="lic-page-content" style="color:var(--text3);font-family:var(--ff-m);font-size:13px;">?¼ì´? ìŠ¤ë¥??±ë¡?´ì£¼?¸ìš”.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>?“‹ ì¿ í°(?¼ì‹œ?•ì?) ?ìš©</h2></div>
+          <div class="panel-body">
+            <div id="coupon-lic-alert" class="alert mb-12"></div>
+            <div class="input-row" style="margin-bottom:10px;">
+              <div class="field"><label>ì¿ í° ì½”ë“œ</label><input type="text" id="cpn-code" placeholder="PAU1-XXXXXXXX-XXXXXXXX"></div>
+              <div class="field" style="flex:0 0 160px;"><label>?”ë°”?´ìŠ¤ ID</label><input type="text" id="cpn-device" placeholder="?ë™ ?…ë ¥"></div>
+            </div>
+            <button class="btn btn-success" onclick="redeemCoupon()">?« ì¿ í° ?ìš©</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY PAGE -->
+      <div class="page" id="page-delivery">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>?›µ ?°ë™??ë°°ë‹¬ ê³„ì •</h2>
+            <button class="btn btn-primary btn-sm" onclick="openLinkModal()">+ ê³„ì • ?°ë™</button>
+          </div>
+          <div class="panel-body">
+            <div id="delivery-list">
+              <div style="color:var(--text3);font-family:var(--ff-m);font-size:13px;padding:16px 0;">?°ë™??ë°°ë‹¬ ê³„ì •???†ìŠµ?ˆë‹¤. [+ ê³„ì • ?°ë™] ë²„íŠ¼???ŒëŸ¬ ì¶”ê??˜ì„¸??</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COUPON PAGE -->
+      <div class="page" id="page-coupon">
+        <div class="panel">
+          <div class="panel-head"><h2>?« ì¿ í° ?ìš©</h2></div>
+          <div class="panel-body">
+            <div id="coupon-alert2" class="alert mb-12"></div>
+            <div class="form-gap" style="max-width:400px;">
+              <div class="field"><label>ì¿ í° ì½”ë“œ</label><input type="text" id="cpn2-code" placeholder="PAU1-XXXXXXXX-XXXXXXXX"></div>
+              <div class="field"><label>?”ë°”?´ìŠ¤ ID</label><input type="text" id="cpn2-device" placeholder="?ë™ ?…ë ¥"></div>
+            </div>
+            <button class="btn btn-success" onclick="redeemCoupon2()">?« ì¿ í° ?ìš©</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE PAGE -->
+      <div class="page" id="page-profile">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>?‘¤ ???•ë³´</h2>
+            <button class="btn btn-primary btn-sm" id="btn-profile-save" onclick="saveProfile()">?€??/button>
+          </div>
+          <div class="panel-body">
+            <div id="profile-alert" class="alert mb-12"></div>
+            <div class="profile-grid">
+              <div class="field"><label>?„ì´??/label><input type="text" id="prof-id" readonly style="opacity:.6;cursor:not-allowed;"></div>
+              <div class="field"><label>?´ë¦„</label><input type="text" id="prof-name" placeholder="?´ë¦„"></div>
+              <div class="field"><label>?´ë???ë²ˆí˜¸</label><input type="tel" id="prof-phone" placeholder="010-0000-0000" oninput="formatPhone(this)"></div>
+              <div class="field"><label>?ë…„?”ì¼</label><input type="text" id="prof-birth" placeholder="YYYYMMDD" maxlength="8"></div>
+            </div>
+            <hr class="divider" style="margin:20px 0;">
+            <div class="step-title" style="font-size:15px;margin-bottom:12px;">ë¹„ë?ë²ˆí˜¸ ë³€ê²?/div>
+            <div class="profile-grid">
+              <div class="field"><label>?„ì¬ ë¹„ë?ë²ˆí˜¸</label><input type="password" id="prof-pw-old" placeholder="?„ì¬ ë¹„ë?ë²ˆí˜¸"></div>
+              <div class="field"><label>??ë¹„ë?ë²ˆí˜¸</label><input type="password" id="prof-pw-new" placeholder="??ë¹„ë?ë²ˆí˜¸ (8???´ìƒ)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+/* ?â•??SOURCE PROTECTION ?â•??*/
+// 1) ?°í´ë¦?ë°©ì?
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// 2) ?¨ì¶•??ë°©ì? (F12, Ctrl+Shift+I/J/C, Ctrl+U, Ctrl+S, Ctrl+A)
+document.addEventListener('keydown', e => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key)) ||
+    (e.ctrlKey && ['U','S','A','u','s','a'].includes(e.key))
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+// 3) ?œë˜ê·?? íƒ ë°©ì? (?ìŠ¤??ë³µì‚¬ ?µì œ)
+document.addEventListener('selectstart', e => {
+  if (!['INPUT','TEXTAREA'].includes(e.target.tagName)) e.preventDefault();
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('copy', e => {
+  if (!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) e.preventDefault();
+});
+
+// 4) ê°œë°œ?ë„êµ??´ë¦¼ ê°ì? (ì°??¬ê¸° ë³€??ê°ì?)
+(function devToolsGuard() {
+  const threshold = 160;
+  let warned = false;
+  setInterval(() => {
+    const widthDiff  = window.outerWidth  - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+    if ((widthDiff > threshold || heightDiff > threshold) && !warned) {
+      warned = true;
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0b0d;color:#f97316;font-family:monospace;font-size:18px;text-align:center;"><div>? ï¸<br><br>???˜ì´ì§€??ê²€???„êµ¬ ?¬ìš©??br>?ˆìš©?˜ì? ?ŠìŠµ?ˆë‹¤.<br><br>?˜ì´ì§€ë¥??ˆë¡œê³ ì¹¨ ?˜ì„¸??</div></div>';
+    }
+    if (widthDiff <= threshold && heightDiff <= threshold && warned) {
+      warned = false;
+    }
+  }, 500);
+})();
+
+// 5) console ì¶œë ¥ ì°¨ë‹¨
+(function consoleGuard() {
+  const noop = () => {};
+  ['log','warn','error','info','debug','table','dir'].forEach(m => {
+    try { console[m] = noop; } catch(e) {}
+  });
+})();
+
+/* ?â•??CONFIG ?â•??*/
+const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
+
+// ?´ì „ Leapcell URL??localStorage???¨ì•„?ˆìœ¼ë©??œê±°
+(function cleanStaleStorage() {
+  const storedUrl = localStorage.getItem('rv_url');
+  if (storedUrl && (storedUrl.includes('leapcell') || storedUrl.includes('koyeb') || !storedUrl.includes('vercel'))) {
+    localStorage.removeItem('rv_url');
+  }
+})();
+
+let cfg = {
+  baseUrl: localStorage.getItem('rv_url') || DEFAULT_URL,
+  apiKey:  localStorage.getItem('rv_api')  || '',
+};
+
+/* ?â•??STATE ?â•??*/
+let state = {
+  token:    localStorage.getItem('rv_token') || '',
+  user:     JSON.parse(localStorage.getItem('rv_user') || 'null'),
+  deviceId: localStorage.getItem('rv_device') || genDeviceId(),
+  deliveryAccounts: [],
+  pendingDelivery:  [],
+  selectedPlatform: null,
+  selectedModalPlatform: null,
+};
+
+function genDeviceId() {
+  const id = 'rv-' + Math.random().toString(36).slice(2,10) + '-' + Date.now().toString(36);
+  localStorage.setItem('rv_device', id);
+  return id;
+}
+
+const PLATFORM_META = {
+  baemin:  { icon: '?›µ', label: 'ë°°ë‹¬?˜ë?ì¡?, cls: 'baemin' },
+  coupang: { icon: '?“¦', label: 'ì¿ íŒ¡?´ì¸ ',   cls: 'coupang' },
+  yogiyo:  { icon: '?”', label: '?”ê¸°??,      cls: 'yogiyo' },
+};
+
+/* ?â•??INIT ?â•??*/
+window.onload = () => {
+  document.getElementById('cfg-url').value = cfg.baseUrl;
+  document.getElementById('cfg-api').value = cfg.apiKey;
+  ['lic-device','cpn-device','cpn2-device'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = state.deviceId;
+  });
+
+  // ?œë²„ ?œì—… ??ë¡œê·¸???”ë©´ ì§„ì… ì¦‰ì‹œ ?¬ìŠ¤ì²´í¬ë¡??¬ë¦½ ?´ì œ
+  warmupServer();
+
+  if (state.token && state.user) {
+    enterApp();
+  } else {
+    showView('view-login');
+  }
+};
+
+// ?œë²„ ?œì—… + 5ë¶„ë§ˆ???‘ìœ¼ë¡??¬ë¦½ ë°©ì?
+async function warmupServer() {
+  try {
+    await fetch(cfg.baseUrl + '/health', { method: 'GET' });
+  } catch(e) { /* ?¬ë¦½ ?´ì œ ì¤???ë¬´ì‹œ */ }
+}
+setInterval(() => warmupServer(), 5 * 60 * 1000); // 5ë¶„ë§ˆ??
+
+/* ?â•??VIEW SWITCHING ?â•??*/
+function showView(viewId) {
+  ['view-login','view-register','view-app'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = 'none';
+    el.classList.remove('active');
+  });
+  const target = document.getElementById(viewId);
+  if (viewId === 'view-app') {
+    target.style.display = '';
+    target.classList.add('active');
+  } else {
+    target.style.display = '';
+  }
+  // ìºë¦­?°ëŠ” ë¡œê·¸???”ë©´?ì„œë§??œì‹œ
+  const mascot = document.getElementById('char-mascot');
+  if (mascot) mascot.style.display = viewId === 'view-login' ? '' : 'none';
+}
+
+function showLogin()    { showView('view-login'); }
+function showRegister() { goStep(1); showView('view-register'); }
+
+/* ?â•??MODAL ?â•??*/
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openHelp()     { openModal('modal-help'); }
+
+/* ?â•??SETTINGS ?â•??*/
+function openSettings() {
+  document.getElementById('cfg-url').value = cfg.baseUrl;
+  document.getElementById('cfg-api').value = cfg.apiKey;
+  openModal('modal-settings');
+}
+
+async function saveSettings() {
+  cfg.baseUrl = document.getElementById('cfg-url').value.replace(/\/$/, '') || DEFAULT_URL;
+  cfg.apiKey  = document.getElementById('cfg-api').value;
+  localStorage.setItem('rv_url', cfg.baseUrl);
+  localStorage.setItem('rv_api', cfg.apiKey);
+  const alertEl = document.getElementById('health-alert');
+  alertEl.className = 'alert alert-info show';
+  alertEl.textContent = '?°ê²° ?•ì¸ ì¤?..';
+  try {
+    const r = await apiFetch('GET', '/health');
+    if (r.ok) {
+      alertEl.className = 'alert alert-success show';
+      alertEl.textContent = '???œë²„???±ê³µ?ìœ¼ë¡??°ê²°?˜ì—ˆ?µë‹ˆ??(' + r.ms + 'ms)';
+    } else {
+      alertEl.className = 'alert alert-error show';
+      alertEl.textContent = '???œë²„ ?‘ë‹µ ?¤ë¥˜: HTTP ' + r.status;
+    }
+  } catch(e) {
+    alertEl.className = 'alert alert-error show';
+    alertEl.textContent = '???°ê²° ?¤íŒ¨: ' + e.message;
+  }
+}
+
+/* ?â•??API HELPER ?â•??*/
+async function apiFetch(method, path, body = null, auth = false) {
+  if (!cfg.baseUrl) cfg.baseUrl = DEFAULT_URL;
+  const headers = { 'Content-Type': 'application/json' };
+  if (cfg.apiKey)          headers['X-API-Key']     = cfg.apiKey;
+  if (auth && state.token) headers['Authorization'] = 'Bearer ' + state.token;
+  const t0  = Date.now();
+  const res = await fetch(cfg.baseUrl + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  const ms  = Date.now() - t0;
+  let data;
+  try { data = await res.json(); } catch { data = {}; }
+  return { ok: res.ok, status: res.status, data, ms };
+}
+
+/* ?â•??UI HELPERS ?â•??*/
+function getErrorMsg(data) {  if (!data) return "?????†ëŠ” ?¤ë¥˜ê°€ ë°œìƒ?ˆìŠµ?ˆë‹¤.";
+  if (typeof data === "string") return data;
+  if (typeof data === "object") {
+    if (data.detail) return getErrorMsg(data.detail);
+    if (data.message) return data.message;
+    if (data.error) return data.error;
+    if (data.msg) return data.msg;
+  }
+  return String(data);
+}\n\nfunction showAlert(el, type, msg) {
+  el.className = 'alert alert-' + type + ' show';
+  el.textContent = msg;
+}
+function setBtn(btn, loading) {
+  if (loading) { btn.classList.add('loading'); btn.disabled = true; }
+  else         { btn.classList.remove('loading'); btn.disabled = false; }
+}
+function clearFieldErr(input) { input.classList.remove('err-input'); }
+function formatPhone(input) {
+  let v = input.value.replace(/\D/g, '');
+  if (v.length <= 3) input.value = v;
+  else if (v.length <= 7) input.value = v.slice(0,3) + '-' + v.slice(3);
+  else input.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
+}
+function toast(msg, type = 'info') {
+  const wrap = document.getElementById('toast-wrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300); }, 3000);
+}
+function getLicenseDesc(type) {
+  const map = { 'monthly': '?”ê°„ ?¼ì´? ìŠ¤', 'yearly': '?°ê°„ ?¼ì´? ìŠ¤', 'trial': 'ì²´í—˜??, 'lifetime': '?‰ìƒ ?¼ì´? ìŠ¤' };
+  return map[(type||'')] || (type ? type + ' ?¼ì´? ìŠ¤' : '?¼ì´? ìŠ¤ ?•ë³´ ?†ìŒ');
+}
+
+/* ?â•??LOGIN ?â•??*/
+async function doLogin() {
+  const btn  = document.getElementById('btn-login');
+  const id   = document.getElementById('login-id').value.trim();
+  const pw   = document.getElementById('login-pw').value;
+  const alrt = document.getElementById('login-alert');
+  if (!id || !pw) { showAlert(alrt, 'error', '?„ì´?”ì? ë¹„ë?ë²ˆí˜¸ë¥??…ë ¥?˜ì„¸??'); return; }
+  setBtn(btn, true);
+  showAlert(alrt, 'info', '?œë²„???°ê²° ì¤?..');
+  try {
+    const r = await apiFetch('POST', '/api/v1/auth/login', { username: id, password: pw });
+    if (r.ok) {
+      state.token = r.data.token || r.data.access_token || '';
+      state.user  = r.data.user || { username: id, name: id };
+      localStorage.setItem('rv_token', state.token);
+      localStorage.setItem('rv_user',  JSON.stringify(state.user));
+      enterApp();
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || 'ë¡œê·¸???¤íŒ¨. ?„ì´??ë¹„ë?ë²ˆí˜¸ë¥??•ì¸?˜ì„¸??');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+  setBtn(btn, false);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const lv = document.getElementById('view-login');
+    if (lv && lv.style.display !== 'none') doLogin();
+  }
+});
+
+function doLogout() {
+  state.token = ''; state.user = null;
+  localStorage.removeItem('rv_token');
+  localStorage.removeItem('rv_user');
+  showView('view-login');
+  toast('ë¡œê·¸?„ì›ƒ ?˜ì—ˆ?µë‹ˆ??', 'info');
+}
+
+/* ?â•??REGISTER ?â•??*/
+let regStep = 1;
+
+function goStep(n) {
+  const cur = document.getElementById('step-' + regStep);
+  const nxt = document.getElementById('step-' + n);
+  if (cur) cur.classList.remove('active');
+  if (nxt) {
+    nxt.classList.remove('go-back');
+    nxt.classList.add('active');
+    if (n < regStep) nxt.classList.add('go-back');
+  }
+  for (let i = 1; i <= 3; i++) {
+    const dot  = document.getElementById('sdot-' + i);
+    const line = document.getElementById('sline-' + i);
+    dot.classList.remove('active','done');
+    if (i < n)  dot.classList.add('done');
+    if (i === n) dot.classList.add('active');
+    if (line) line.classList.toggle('done', i < n);
+  }
+  regStep = n;
+}
+
+function step1Next() {
+  const id   = document.getElementById('reg-id').value.trim();
+  const pw   = document.getElementById('reg-pw').value;
+  const pw2  = document.getElementById('reg-pw2').value;
+  const alrt = document.getElementById('step1-alert');
+  if (!id || id.length < 4)               { showAlert(alrt, 'error', '?„ì´?”ëŠ” 4???´ìƒ?´ì–´???©ë‹ˆ??'); return; }
+  if (!/^[a-zA-Z0-9_]+$/.test(id))        { showAlert(alrt, 'error', '?„ì´?”ëŠ” ?ë¬¸/?«ì/ë°‘ì¤„ë§??¬ìš© ê°€?¥í•©?ˆë‹¤.'); return; }
+  if (!pw || pw.length < 8)               { showAlert(alrt, 'error', 'ë¹„ë?ë²ˆí˜¸??8???´ìƒ?´ì–´???©ë‹ˆ??'); return; }
+  if (pw !== pw2)                          { showAlert(alrt, 'error', 'ë¹„ë?ë²ˆí˜¸ê°€ ?¼ì¹˜?˜ì? ?ŠìŠµ?ˆë‹¤.'); return; }
+  alrt.classList.remove('show');
+  goStep(2);
+}
+
+async function step2Next() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim().replace(/-/g, '');
+  const birth = document.getElementById('reg-birth').value.trim();
+  const alrt  = document.getElementById('step2-alert');
+  if (!name)  { showAlert(alrt, 'error', '?´ë¦„???…ë ¥?˜ì„¸??'); return; }
+  if (!phone || phone.length < 10) { showAlert(alrt, 'error', '?¬ë°”ë¥??´ë???ë²ˆí˜¸ë¥??…ë ¥?˜ì„¸??'); return; }
+  if (!birth || birth.length !== 8 || !/^\d{8}$/.test(birth)) { showAlert(alrt, 'error', '?ë…„?”ì¼??YYYYMMDD ?•ì‹?¼ë¡œ ?…ë ¥?˜ì„¸??'); return; }
+  if (!/^01[016789]\d{7,8}$/.test(phone)) { showAlert(alrt, 'error', '?¬ë°”ë¥?êµ?‚´ ?´ë???ë²ˆí˜¸ë¥??…ë ¥?˜ì„¸??'); return; }
+  alrt.classList.remove('show');
+  state.pendingDelivery = [];
+  goStep(3);
+}
+
+async function completeRegister() {
+  const id    = document.getElementById('reg-id').value.trim();
+  const pw    = document.getElementById('reg-pw').value;
+  const name  = document.getElementById('reg-name').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim().replace(/-/g, '');
+  const birth = document.getElementById('reg-birth').value.trim();
+  const alrt  = document.getElementById('step3-alert');
+  const btn   = document.getElementById('btn-complete');
+  setBtn(btn, true);
+  try {
+    const r = await apiFetch('POST', '/api/v1/auth/register', {
+      username: id, password: pw, name, phone, birth_date: birth,
+      delivery_accounts: state.pendingDelivery,
+    });
+    if (r.ok) {
+      state.token = r.data.token || r.data.access_token || '';
+      state.user  = r.data.user || { username: id, name };
+      localStorage.setItem('rv_token', state.token);
+      localStorage.setItem('rv_user',  JSON.stringify(state.user));
+      toast('?Œì›ê°€???„ë£Œ! ?˜ì˜?©ë‹ˆ?? ' + name + '??', 'success');
+      enterApp();
+    } else {
+      const detail = r.data.detail || r.data.message || r.data.error || JSON.stringify(r.data);
+      showAlert(alrt, 'error', `[${r.status}] ${detail}`);
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+  setBtn(btn, false);
+}
+
+/* ?â•??DELIVERY (REGISTER STEP) ?â•??*/
+function selectPlatform(p) {
+  state.selectedPlatform = p;
+  document.getElementById('dc-baemin').classList.toggle('selected', p === 'baemin');
+  document.getElementById('dc-coupang').classList.toggle('selected', p === 'coupang');
+  const meta = PLATFORM_META[p];
+  document.getElementById('dc-id-label').textContent = meta.label + ' ?„ì´??;
+  document.getElementById('dc-pw-label').textContent = meta.label + ' ë¹„ë?ë²ˆí˜¸';
+  document.getElementById('delivery-form').style.display = 'block';
+}
+
+function addDeliveryAccount() {
+  const platform = state.selectedPlatform;
+  const username = document.getElementById('dc-username').value.trim();
+  const password = document.getElementById('dc-password').value;
+  if (!platform) { toast('?Œë«?¼ì„ ë¨¼ì? ? íƒ?´ì£¼?¸ìš”.', 'error'); return; }
+  if (!username || !password) { toast('?„ì´?”ì? ë¹„ë?ë²ˆí˜¸ë¥??…ë ¥?˜ì„¸??', 'error'); return; }
+  if (state.pendingDelivery.find(a => a.platform === platform)) { toast(PLATFORM_META[platform].label + ' ê³„ì •???´ë? ì¶”ê??˜ì—ˆ?µë‹ˆ??', 'error'); return; }
+  state.pendingDelivery.push({ platform, username, password });
+  document.getElementById('dc-username').value = '';
+  document.getElementById('dc-password').value = '';
+  renderPendingDelivery();
+  toast(PLATFORM_META[platform].label + ' ê³„ì •??ì¶”ê??˜ì—ˆ?µë‹ˆ??', 'success');
+}
+
+function renderPendingDelivery() {
+  const list = document.getElementById('dc-added-list');
+  list.innerHTML = state.pendingDelivery.map(a => {
+    const meta = PLATFORM_META[a.platform];
+    return `<div class="delivery-linked" style="margin-bottom:8px;">
+      <span class="dl-icon">${meta.icon}</span>
+      <div class="dl-info"><div class="dl-platform">${meta.label}</div><div class="dl-id">${a.username}</div></div>
+      <span class="badge badge-green dl-badge">ì¶”ê???/span></div>`;
+  }).join('');
+}
+
+/* ?â•??ENTER APP ?â•??*/
+function enterApp() {
+  showView('view-app');
+  const user = state.user || {};
+  const name = user.name || user.username || '?¼ì´??;
+  document.getElementById('app-username').textContent = name;
+  document.getElementById('app-userid').textContent   = '@' + (user.username || 'rider');
+  document.getElementById('app-avatar').textContent   = name.charAt(0).toUpperCase();
+  document.getElementById('prof-id').value    = user.username || '';
+  document.getElementById('prof-name').value  = user.name    || '';
+  document.getElementById('prof-phone').value = user.phone   || '';
+  document.getElementById('prof-birth').value = user.birth_date || '';
+  gotoPage('dashboard');
+  checkHealth();
+  loadDeliveryAccounts();
+  loadLicenseStatus();
+}
+
+/* ?â•??NAVIGATION ?â•??*/
+const PAGE_TITLES = { dashboard: '?€?œë³´??, license: '?¼ì´? ìŠ¤', delivery: 'ë°°ë‹¬ ê³„ì •', coupon: 'ì¿ í°', profile: '???•ë³´' };
+
+function gotoPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') === `gotoPage('${id}')`) n.classList.add('active');
+  });
+  document.getElementById('app-page-title').textContent = PAGE_TITLES[id] || '';
+  if (id === 'coupon')  document.getElementById('cpn2-device').value = state.deviceId;
+  if (id === 'license') document.getElementById('cpn-device').value  = state.deviceId;
+}
+
+/* ?â•??HEALTH ?â•??*/
+async function checkHealth() {
+  const dot = document.getElementById('app-dot');
+  const st  = document.getElementById('app-status');
+  dot.className = 'status-dot pulse'; st.textContent = '?•ì¸ ì¤?..';
+  try {
+    const r = await apiFetch('GET', '/health');
+    if (r.ok) {
+      dot.className = 'status-dot online'; st.textContent = '?¨ë¼??;
+      document.getElementById('dash-ping').textContent = r.ms;
+    } else {
+      dot.className = 'status-dot offline'; st.textContent = 'HTTP ' + r.status;
+    }
+  } catch(e) { dot.className = 'status-dot offline'; st.textContent = '?°ê²° ?¤íŒ¨'; }
+}
+
+/* ?â•??LICENSE ?â•??*/
+async function loadLicenseStatus() {
+  try {
+    const r = await apiFetch('GET', '/api/v1/licenses/status/' + encodeURIComponent(state.deviceId), null, true);
+    if (r.ok && r.data) {
+      const d = r.data;
+      document.getElementById('lc-type').textContent        = d.license_type || d.type || '??;
+      document.getElementById('lc-desc').textContent        = getLicenseDesc(d.license_type || d.type);
+      document.getElementById('lc-exp').textContent         = d.expires_at || d.expiry_date || '??;
+      document.getElementById('lc-device-disp').textContent = state.deviceId.slice(0,14) + '...';
+      document.getElementById('lc-status-badge').textContent = d.is_active ? '?œì„±' : 'ë§Œë£Œ';
+      document.getElementById('lc-status-badge').className   = 'badge ' + (d.is_active ? 'badge-green' : 'badge-red');
+      if (d.expires_at || d.expiry_date) {
+        const exp  = new Date(d.expires_at || d.expiry_date);
+        const days = Math.max(0, Math.ceil((exp - new Date()) / 86400000));
+        document.getElementById('dash-days').textContent = days;
+      }
+      document.getElementById('lic-page-content').innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <span style="font-size:11px;color:var(--text3);font-family:var(--ff-m);">?€??</span>
+            <strong style="color:var(--accent);font-family:var(--ff-d);font-size:16px;">${d.license_type||d.type||'??}</strong>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <span style="font-size:11px;color:var(--text3);font-family:var(--ff-m);">ë§Œë£Œ??</span>
+            <span style="color:var(--text);font-family:var(--ff-m);font-size:12px;">${d.expires_at||d.expiry_date||'??}</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <span style="font-size:11px;color:var(--text3);font-family:var(--ff-m);">?íƒœ:</span>
+            <span class="badge ${d.is_active?'badge-green':'badge-red'}">${d.is_active?'?œì„±':'ë§Œë£Œ'}</span>
+          </div>
+        </div>`;
+    }
+  } catch(e) { /* ë¯¸ë“±ë¡??íƒœ ? ì? */ }
+}
+
+async function redeemLicense() {
+  const key    = document.getElementById('lic-key').value.trim();
+  const device = document.getElementById('lic-device').value.trim();
+  const alrt   = document.getElementById('lic-alert');
+  if (!key) { showAlert(alrt, 'error', '?¼ì´? ìŠ¤ ?¤ë? ?…ë ¥?˜ì„¸??'); return; }
+  try {
+    const r = await apiFetch('POST', '/api/v1/licenses/redeem', { license_key: key, device_id: device }, true);
+    if (r.ok) {
+      closeModal('modal-license');
+      toast('?¼ì´? ìŠ¤ê°€ ?±ê³µ?ìœ¼ë¡??±ë¡?˜ì—ˆ?µë‹ˆ??', 'success');
+      loadLicenseStatus();
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || '?±ë¡ ?¤íŒ¨.');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+}
+
+/* ?â•??COUPON ?â•??*/
+async function redeemCoupon() {
+  const code   = document.getElementById('cpn-code').value.trim();
+  const device = document.getElementById('cpn-device').value.trim();
+  const alrt   = document.getElementById('coupon-lic-alert');
+  if (!code) { showAlert(alrt, 'error', 'ì¿ í° ì½”ë“œë¥??…ë ¥?˜ì„¸??'); return; }
+  try {
+    const r = await apiFetch('POST', '/api/v1/coupons/redeem', { coupon_code: code, device_id: device }, true);
+    if (r.ok) {
+      showAlert(alrt, 'success', 'ì¿ í°???ìš©?˜ì—ˆ?µë‹ˆ??');
+      toast('ì¿ í° ?ìš© ?„ë£Œ!', 'success');
+      loadLicenseStatus();
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || 'ì¿ í° ?ìš© ?¤íŒ¨.');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+}
+
+async function redeemCoupon2() {
+  const code   = document.getElementById('cpn2-code').value.trim();
+  const device = document.getElementById('cpn2-device').value.trim();
+  const alrt   = document.getElementById('coupon-alert2');
+  if (!code) { showAlert(alrt, 'error', 'ì¿ í° ì½”ë“œë¥??…ë ¥?˜ì„¸??'); return; }
+  try {
+    const r = await apiFetch('POST', '/api/v1/coupons/redeem', { coupon_code: code, device_id: device }, true);
+    if (r.ok) {
+      showAlert(alrt, 'success', 'ì¿ í°???ìš©?˜ì—ˆ?µë‹ˆ??');
+      toast('ì¿ í° ?ìš© ?„ë£Œ!', 'success');
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || 'ì¿ í° ?ìš© ?¤íŒ¨.');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+}
+
+/* ?â•??DELIVERY ACCOUNTS ?â•??*/
+async function loadDeliveryAccounts() {
+  try {
+    const r = await apiFetch('GET', '/api/v1/delivery-accounts', null, true);
+    if (r.ok && Array.isArray(r.data)) {
+      state.deliveryAccounts = r.data;
+      document.getElementById('dash-accounts').textContent = r.data.length;
+      renderDeliveryList();
+    }
+  } catch(e) { /* silent */ }
+}
+
+function renderDeliveryList() {
+  const list = document.getElementById('delivery-list');
+  if (!state.deliveryAccounts.length) {
+    list.innerHTML = '<div style="color:var(--text3);font-family:var(--ff-m);font-size:13px;padding:20px 0;text-align:center;">?°ë™??ë°°ë‹¬ ê³„ì •???†ìŠµ?ˆë‹¤.<br><span style=\"font-size:11px;\">?„ë˜ [+ ê³„ì • ?°ë™] ë²„íŠ¼???ŒëŸ¬ ì¶”ê??˜ì„¸??</span></div>';
+    return;
+  }
+  list.innerHTML = state.deliveryAccounts.map(a => {
+    const meta   = PLATFORM_META[a.platform] || { icon: '?“¦', label: a.platform, cls: '' };
+    const status = a.status || 'connected';
+    const statusCls   = status === 'connected' ? 'badge-green' : status === 'error' ? 'badge-red' : 'badge-blue';
+    const statusLabel = status === 'connected' ? '?°ë™?? : status === 'error' ? '?¤ë¥˜' : 'ë¯¸ì—°??;
+    const linkedDate  = a.linked_at ? new Date(a.linked_at).toLocaleDateString('ko-KR') : '??;
+    const deviceTag   = a.device_id ? `<span style="font-size:10px;color:var(--text3);font-family:var(--ff-m);">?“± ${a.device_id.slice(0,14)}??/span>` : '';
+    return `<div class="delivery-account-item" style="flex-wrap:wrap;gap:8px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <span class="dai-icon" style="font-size:22px;">${meta.icon}</span>
+      <div class="dai-info" style="flex:1;min-width:120px;">
+        <div class="dai-name ${meta.cls}" style="font-weight:600;">${meta.label}</div>
+        <div class="dai-id" style="font-size:12px;color:var(--text2);">${a.username || a.account_id || ''}</div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+          ${deviceTag}
+          <span style="font-size:10px;color:var(--text3);">?°ë™?? ${linkedDate}</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <span class="badge ${statusCls}">${statusLabel}</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost btn-sm" onclick="refreshDeliveryStatus(${a.id})" style="font-size:10px;padding:3px 8px;">?”„ ?•ì¸</button>
+          <button class="btn btn-danger btn-sm" onclick="unlinkDelivery(${a.id})" style="font-size:10px;padding:3px 8px;">?? œ</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function refreshDeliveryStatus(id) {
+  try {
+    const r = await apiFetch('PATCH', '/api/v1/delivery-accounts/' + id + '/status', { status: 'connected' }, true);
+    if (r.ok) { toast('?íƒœê°€ ?•ì¸?˜ì—ˆ?µë‹ˆ??', 'success'); loadDeliveryAccounts(); }
+    else toast(r.data.detail || '?íƒœ ?•ì¸ ?¤íŒ¨', 'error');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+function openLinkModal() {
+  state.selectedModalPlatform = null;
+  ['ml-baemin','ml-coupang','ml-yogiyo'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.remove('selected'); });
+  document.getElementById('modal-link-form').style.display = 'none';
+  document.getElementById('ml-username').value = '';
+  document.getElementById('ml-password').value = '';
+  document.getElementById('link-alert').classList.remove('show');
+  openModal('modal-link');
+}
+
+function selectModalPlatform(p) {
+  state.selectedModalPlatform = p;
+  document.getElementById('ml-baemin').classList.toggle('selected', p === 'baemin');
+  document.getElementById('ml-coupang').classList.toggle('selected', p === 'coupang');
+  const meta = PLATFORM_META[p];
+  document.getElementById('ml-id-label').textContent = meta.label + ' ?„ì´??;
+  document.getElementById('ml-pw-label').textContent = meta.label + ' ë¹„ë?ë²ˆí˜¸';
+  document.getElementById('modal-link-form').style.display = 'block';
+}
+
+async function linkDeliveryAccount() {
+  const platform = state.selectedModalPlatform;
+  const username = document.getElementById('ml-username').value.trim();
+  const password = document.getElementById('ml-password').value;
+  const alrt     = document.getElementById('link-alert');
+  if (!platform) { showAlert(alrt, 'error', '?Œë«?¼ì„ ? íƒ?´ì£¼?¸ìš”.'); return; }
+  if (!username)  { showAlert(alrt, 'error', '?„ì´?”ë? ?…ë ¥?˜ì„¸??'); return; }
+  const btn = document.getElementById('btn-link-confirm');
+  setBtn(btn, true);
+  try {
+    const r = await apiFetch('POST', '/api/v1/delivery-accounts',
+      { platform, username, password, device_id: state.deviceId }, true);
+    if (r.ok) {
+      closeModal('modal-link');
+      toast((PLATFORM_META[platform]?.label || platform) + ' ê³„ì •???°ë™?˜ì—ˆ?µë‹ˆ??', 'success');
+      loadDeliveryAccounts();
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || '?°ë™ ?¤íŒ¨.');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+  setBtn(btn, false);
+}
+
+async function unlinkDelivery(id) {
+  if (!confirm('??ë°°ë‹¬ ê³„ì •???? œ?˜ì‹œê² ìŠµ?ˆê¹Œ?')) return;
+  try {
+    const r = await apiFetch('DELETE', '/api/v1/delivery-accounts/' + id, null, true);
+    if (r.ok) { toast('ë°°ë‹¬ ê³„ì •???? œ?˜ì—ˆ?µë‹ˆ??', 'info'); loadDeliveryAccounts(); }
+    else toast(r.data.detail || '?? œ ?¤íŒ¨.', 'error');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+/* ?â•??PROFILE ?â•??*/
+async function saveProfile() {
+  const btn  = document.getElementById('btn-profile-save');
+  const alrt = document.getElementById('profile-alert');
+  const name  = document.getElementById('prof-name').value.trim();
+  const phone = document.getElementById('prof-phone').value.trim().replace(/-/g, '');
+  const birth = document.getElementById('prof-birth').value.trim();
+  const pwOld = document.getElementById('prof-pw-old').value;
+  const pwNew = document.getElementById('prof-pw-new').value;
+
+  if (!name) { showAlert(alrt, 'error', '?´ë¦„???…ë ¥?˜ì„¸??'); return; }
+
+  const body = { name, phone, birth_date: birth };
+  if (pwOld && pwNew) {
+    if (pwNew.length < 8) { showAlert(alrt, 'error', '??ë¹„ë?ë²ˆí˜¸??8???´ìƒ?´ì–´???©ë‹ˆ??'); return; }
+    body.current_password = pwOld;
+    body.new_password     = pwNew;
+  }
+
+  setBtn(btn, true);
+  try {
+    const r = await apiFetch('PUT', '/api/v1/users/me', body, true);
+    if (r.ok) {
+      state.user = { ...state.user, ...body };
+      localStorage.setItem('rv_user', JSON.stringify(state.user));
+      showAlert(alrt, 'success', '?•ë³´ê°€ ?€?¥ë˜?ˆìŠµ?ˆë‹¤.');
+      toast('???•ë³´ê°€ ?…ë°?´íŠ¸?˜ì—ˆ?µë‹ˆ??', 'success');
+      document.getElementById('prof-pw-old').value = '';
+      document.getElementById('prof-pw-new').value = '';
+    } else {
+      showAlert(alrt, "error", getErrorMsg(r.data) || '?€???¤íŒ¨.');
+    }
+  } catch(e) { showAlert(alrt, 'error', e.message); }
+  setBtn(btn, false);
+}
+</script>
+</body>
+</html>
+
