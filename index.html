@@ -1135,11 +1135,21 @@ async function apiFetch(method, path, body = null, auth = false) {
 function getErrorMsg(data) {
   if (!data) return '알 수 없는 오류가 발생했습니다.';
   if (typeof data === 'string') return data;
+  if (Array.isArray(data)) {
+    // FastAPI 422 validation error: [{loc:[...], msg:"...", type:"..."}]
+    return data.map(item => {
+      if (typeof item === 'string') return item;
+      if (item && item.msg) return item.msg;
+      if (item && item.message) return item.message;
+      return JSON.stringify(item);
+    }).join(' / ');
+  }
   if (typeof data === 'object') {
     if (data.detail) return getErrorMsg(data.detail);
     if (data.message) return data.message;
     if (data.error) return data.error;
     if (data.msg) return data.msg;
+    return JSON.stringify(data);
   }
   return String(data);
 }
