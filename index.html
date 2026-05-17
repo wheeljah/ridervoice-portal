@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -459,8 +459,8 @@ select option { background: var(--bg2); }
 
   <div class="auth-card">
     <div class="auth-head">
-      <div class="auth-logo">RIDER<span>VOICE</span></div>
-      <div class="auth-sub">AI · 라이더 포털</div>
+      <div class="auth-logo">Rider<span>Voice</span></div>
+      <div class="auth-sub">AI Rider Portal · 라이더 포털</div>
     </div>
     <div class="auth-body">
       <div class="step-title">로그인</div>
@@ -477,6 +477,7 @@ select option { background: var(--bg2); }
         </div>
       </div>
       <button class="btn btn-primary btn-block btn-lg" id="btn-login" onclick="doLogin()">로그인</button>
+      <p id="debug-url" style="font-size:11px;color:#888;margin-top:6px;word-break:break-all;"></p>
       <div class="divider-text mt-16 mb-12" style="font-size:11px;">아직 계정이 없으신가요?</div>
       <button class="btn btn-ghost btn-block" onclick="showRegister()">회원가입 →</button>
       <div class="mt-16" style="display:flex;justify-content:space-between;align-items:center;">
@@ -501,7 +502,7 @@ select option { background: var(--bg2); }
 <div id="view-register" class="auth-wrap" style="display:none;">
   <div class="auth-card" style="max-width: 460px;">
     <div class="auth-head">
-      <div class="auth-logo">RIDER<span>VOICE</span></div>
+      <div class="auth-logo">Rider<span>Voice</span></div>
       <div class="auth-sub">회원가입</div>
     </div>
     <div class="auth-body">
@@ -594,8 +595,8 @@ select option { background: var(--bg2); }
     <div class="modal-body">
       <div id="health-alert" class="alert mb-12"></div>
       <div class="settings-field">
-        <div class="field"><label>백엔드 API URL</label><input type="text" id="cfg-url" placeholder="https://your-app.leapcell.dev" readonly style="opacity:0.6;cursor:default;" title="서버 URL은 자동으로 설정됩니다"></div>
-        <div class="settings-note">Leapcell에 배포된 RiderVoiceAI 백엔드 URL을 입력하세요.</div>
+        <div class="field"><label>백엔드 API URL</label><input type="text" id="cfg-url" placeholder="https://ridervoice-demo.vercel.app" readonly style="opacity:0.6;cursor:default;" title="서버 URL은 자동으로 설정됩니다"></div>
+        <div class="settings-note">RiderVoiceAI 백엔드 서버 URL (자동 설정됨)</div>
       </div>
       <div class="settings-field">
         <div class="field"><label>API Key</label><input type="password" id="cfg-api" placeholder="선택 사항"></div>
@@ -720,7 +721,14 @@ select option { background: var(--bg2); }
           <div class="dc-name">쿠팡이츠</div>
           <div class="dc-sub">쿠팡이츠 파트너</div>
         </label>
+        <label class="delivery-card" id="ml-yogiyo" onclick="selectModalPlatform('yogiyo')" style="border-color:var(--border);">
+          <input type="radio" name="ml-platform" value="yogiyo">
+          <span class="dc-icon">🍔</span>
+          <div class="dc-name">요기요</div>
+          <div class="dc-sub">요기요 플러스</div>
+        </label>
       </div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;">※ 동일 플랫폼 계정도 여러 개 추가 가능합니다</div>
       <div id="modal-link-form" style="display:none;" class="form-gap">
         <div class="field"><label id="ml-id-label">계정 아이디</label><input type="text" id="ml-username" placeholder="아이디"></div>
         <div class="field"><label id="ml-pw-label">계정 비밀번호</label><input type="password" id="ml-password" placeholder="비밀번호"></div>
@@ -759,7 +767,7 @@ select option { background: var(--bg2); }
 <div class="app-wrap" id="view-app">
   <aside class="sidebar">
     <div class="logo">
-      <div class="logo-mark">RIDER VOICE</div>
+      <div class="logo-mark">RiderVoice</div>
       <div class="logo-sub">AI · 라이더 포털</div>
     </div>
     <div class="user-profile-mini">
@@ -981,12 +989,19 @@ document.addEventListener('copy', e => {
 })();
 
 /* ═══ CONFIG ═══ */
-const DEFAULT_URL = 'https://rider-s-projects-ridervoice-demo.vercel.app';
-const DEFAULT_API_KEY = 'b264035cf542113844b7ea8266e27dea4db5a2591dea77a3dd78c3a738ebeb80';
+const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
+
+// 이전 Leapcell URL이 localStorage에 남아있으면 제거
+(function cleanStaleStorage() {
+  const storedUrl = localStorage.getItem('rv_url');
+  if (storedUrl && (storedUrl.includes('leapcell') || storedUrl.includes('koyeb') || !storedUrl.includes('vercel'))) {
+    localStorage.removeItem('rv_url');
+  }
+})();
 
 let cfg = {
   baseUrl: localStorage.getItem('rv_url') || DEFAULT_URL,
-  apiKey:  localStorage.getItem('rv_api')  || DEFAULT_API_KEY,
+  apiKey:  localStorage.getItem('rv_api')  || '',
 };
 
 /* ═══ STATE ═══ */
@@ -1009,6 +1024,7 @@ function genDeviceId() {
 const PLATFORM_META = {
   baemin:  { icon: '🛵', label: '배달의민족', cls: 'baemin' },
   coupang: { icon: '📦', label: '쿠팡이츠',   cls: 'coupang' },
+  yogiyo:  { icon: '🍔', label: '요기요',      cls: 'yogiyo' },
 };
 
 /* ═══ INIT ═══ */
@@ -1019,12 +1035,25 @@ window.onload = () => {
     const el = document.getElementById(id);
     if (el) el.value = state.deviceId;
   });
+
+  const du = document.getElementById("debug-url"); if(du) du.textContent = "서버: " + cfg.baseUrl;
+  // 서버 웜업 — 로그인 화면 진입 즉시 헬스체크로 슬립 해제
+  warmupServer();
+
   if (state.token && state.user) {
     enterApp();
   } else {
     showView('view-login');
   }
 };
+
+// 서버 웜업 + 5분마다 핑으로 슬립 방지
+async function warmupServer() {
+  try {
+    await fetch(cfg.baseUrl + '/health', { method: 'GET' });
+  } catch(e) { /* 슬립 해제 중 — 무시 */ }
+}
+setInterval(() => warmupServer(), 5 * 60 * 1000); // 5분마다
 
 /* ═══ VIEW SWITCHING ═══ */
 function showView(viewId) {
@@ -1098,7 +1127,27 @@ async function apiFetch(method, path, body = null, auth = false) {
 }
 
 /* ═══ UI HELPERS ═══ */
-function showAlert(el, type, msg) {
+function getErrorMsg(data) {
+  if (!data) return '알 수 없는 오류가 발생했습니다.';
+  if (typeof data === 'string') return data;
+  if (typeof data === 'object') {
+    if (data.detail) return getErrorMsg(data.detail);
+    if (data.message) return data.message;
+    if (data.error) return data.error;
+    if (data.msg) return data.msg;
+  }
+  return String(data);
+}
+function getErrorMsg(data) {\n  if (!data) return "알 수 없는 오류가 발생했습니다.";
+  if (typeof data === "string") return data;
+  if (typeof data === "object") {
+    if (data.detail) return getErrorMsg(data.detail);
+    if (data.message) return data.message;
+    if (data.error) return data.error;
+    if (data.msg) return data.msg;
+  }
+  return String(data);
+}\n\nfunction showAlert(el, type, msg) {
   el.className = 'alert alert-' + type + ' show';
   el.textContent = msg;
 }
@@ -1134,6 +1183,7 @@ async function doLogin() {
   const alrt = document.getElementById('login-alert');
   if (!id || !pw) { showAlert(alrt, 'error', '아이디와 비밀번호를 입력하세요.'); return; }
   setBtn(btn, true);
+  showAlert(alrt, 'info', '서버에 연결 중...');
   try {
     const r = await apiFetch('POST', '/api/v1/auth/login', { username: id, password: pw });
     if (r.ok) {
@@ -1143,9 +1193,9 @@ async function doLogin() {
       localStorage.setItem('rv_user',  JSON.stringify(state.user));
       enterApp();
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '로그인 실패. 아이디/비밀번호를 확인하세요.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '로그인 실패. 아이디/비밀번호를 확인하세요.');
     }
-  } catch(e) { showAlert(alrt, 'error', e.message); }
+  } catch(e) { showAlert(alrt, 'error', e.message + ' [→ ' + cfg.baseUrl + ']'); }
   setBtn(btn, false);
 }
 
@@ -1377,7 +1427,7 @@ async function redeemLicense() {
       toast('라이선스가 성공적으로 등록되었습니다.', 'success');
       loadLicenseStatus();
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '등록 실패.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '등록 실패.');
     }
   } catch(e) { showAlert(alrt, 'error', e.message); }
 }
@@ -1395,7 +1445,7 @@ async function redeemCoupon() {
       toast('쿠폰 적용 완료!', 'success');
       loadLicenseStatus();
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '쿠폰 적용 실패.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '쿠폰 적용 실패.');
     }
   } catch(e) { showAlert(alrt, 'error', e.message); }
 }
@@ -1411,7 +1461,7 @@ async function redeemCoupon2() {
       showAlert(alrt, 'success', '쿠폰이 적용되었습니다.');
       toast('쿠폰 적용 완료!', 'success');
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '쿠폰 적용 실패.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '쿠폰 적용 실패.');
     }
   } catch(e) { showAlert(alrt, 'error', e.message); }
 }
@@ -1431,27 +1481,48 @@ async function loadDeliveryAccounts() {
 function renderDeliveryList() {
   const list = document.getElementById('delivery-list');
   if (!state.deliveryAccounts.length) {
-    list.innerHTML = '<div style="color:var(--text3);font-family:var(--ff-m);font-size:13px;padding:16px 0;">연동된 배달 계정이 없습니다. [+ 계정 연동] 버튼을 눌러 추가하세요.</div>';
+    list.innerHTML = '<div style="color:var(--text3);font-family:var(--ff-m);font-size:13px;padding:20px 0;text-align:center;">연동된 배달 계정이 없습니다.<br><span style=\"font-size:11px;\">아래 [+ 계정 연동] 버튼을 눌러 추가하세요.</span></div>';
     return;
   }
   list.innerHTML = state.deliveryAccounts.map(a => {
-    const meta = PLATFORM_META[a.platform] || { icon: '📦', label: a.platform, cls: '' };
-    return `<div class="delivery-account-item">
-      <span class="dai-icon">${meta.icon}</span>
-      <div class="dai-info">
-        <div class="dai-name ${meta.cls}">${meta.label}</div>
-        <div class="dai-id">${a.username || a.account_id || ''}</div>
+    const meta   = PLATFORM_META[a.platform] || { icon: '📦', label: a.platform, cls: '' };
+    const status = a.status || 'connected';
+    const statusCls   = status === 'connected' ? 'badge-green' : status === 'error' ? 'badge-red' : 'badge-blue';
+    const statusLabel = status === 'connected' ? '연동됨' : status === 'error' ? '오류' : '미연동';
+    const linkedDate  = a.linked_at ? new Date(a.linked_at).toLocaleDateString('ko-KR') : '—';
+    const deviceTag   = a.device_id ? `<span style="font-size:10px;color:var(--text3);font-family:var(--ff-m);">📱 ${a.device_id.slice(0,14)}…</span>` : '';
+    return `<div class="delivery-account-item" style="flex-wrap:wrap;gap:8px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <span class="dai-icon" style="font-size:22px;">${meta.icon}</span>
+      <div class="dai-info" style="flex:1;min-width:120px;">
+        <div class="dai-name ${meta.cls}" style="font-weight:600;">${meta.label}</div>
+        <div class="dai-id" style="font-size:12px;color:var(--text2);">${a.username || a.account_id || ''}</div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+          ${deviceTag}
+          <span style="font-size:10px;color:var(--text3);">연동일: ${linkedDate}</span>
+        </div>
       </div>
-      <span class="badge badge-green dai-status">연동됨</span>
-      <div class="dai-actions">
-        <button class="btn btn-danger btn-sm" onclick="unlinkDelivery('${a.id||a.platform}')">삭제</button>
-      </div></div>`;
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <span class="badge ${statusCls}">${statusLabel}</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost btn-sm" onclick="refreshDeliveryStatus(${a.id})" style="font-size:10px;padding:3px 8px;">🔄 확인</button>
+          <button class="btn btn-danger btn-sm" onclick="unlinkDelivery(${a.id})" style="font-size:10px;padding:3px 8px;">삭제</button>
+        </div>
+      </div>
+    </div>`;
   }).join('');
+}
+
+async function refreshDeliveryStatus(id) {
+  try {
+    const r = await apiFetch('PATCH', '/api/v1/delivery-accounts/' + id + '/status', { status: 'connected' }, true);
+    if (r.ok) { toast('상태가 확인되었습니다.', 'success'); loadDeliveryAccounts(); }
+    else toast(r.data.detail || '상태 확인 실패', 'error');
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function openLinkModal() {
   state.selectedModalPlatform = null;
-  ['ml-baemin','ml-coupang'].forEach(id => document.getElementById(id).classList.remove('selected'));
+  ['ml-baemin','ml-coupang','ml-yogiyo'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.remove('selected'); });
   document.getElementById('modal-link-form').style.display = 'none';
   document.getElementById('ml-username').value = '';
   document.getElementById('ml-password').value = '';
@@ -1475,17 +1546,18 @@ async function linkDeliveryAccount() {
   const password = document.getElementById('ml-password').value;
   const alrt     = document.getElementById('link-alert');
   if (!platform) { showAlert(alrt, 'error', '플랫폼을 선택해주세요.'); return; }
-  if (!username || !password) { showAlert(alrt, 'error', '아이디와 비밀번호를 입력하세요.'); return; }
+  if (!username)  { showAlert(alrt, 'error', '아이디를 입력하세요.'); return; }
   const btn = document.getElementById('btn-link-confirm');
   setBtn(btn, true);
   try {
-    const r = await apiFetch('POST', '/api/v1/delivery-accounts', { platform, username, password }, true);
+    const r = await apiFetch('POST', '/api/v1/delivery-accounts',
+      { platform, username, password, device_id: state.deviceId }, true);
     if (r.ok) {
       closeModal('modal-link');
-      toast(PLATFORM_META[platform].label + ' 계정이 연동되었습니다.', 'success');
+      toast((PLATFORM_META[platform]?.label || platform) + ' 계정이 연동되었습니다.', 'success');
       loadDeliveryAccounts();
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '연동 실패.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '연동 실패.');
     }
   } catch(e) { showAlert(alrt, 'error', e.message); }
   setBtn(btn, false);
@@ -1494,7 +1566,7 @@ async function linkDeliveryAccount() {
 async function unlinkDelivery(id) {
   if (!confirm('이 배달 계정을 삭제하시겠습니까?')) return;
   try {
-    const r = await apiFetch('DELETE', '/api/v1/delivery-accounts/' + encodeURIComponent(id), null, true);
+    const r = await apiFetch('DELETE', '/api/v1/delivery-accounts/' + id, null, true);
     if (r.ok) { toast('배달 계정이 삭제되었습니다.', 'info'); loadDeliveryAccounts(); }
     else toast(r.data.detail || '삭제 실패.', 'error');
   } catch(e) { toast(e.message, 'error'); }
@@ -1530,7 +1602,7 @@ async function saveProfile() {
       document.getElementById('prof-pw-old').value = '';
       document.getElementById('prof-pw-new').value = '';
     } else {
-      showAlert(alrt, 'error', r.data.detail || r.data.message || '저장 실패.');
+      showAlert(alrt, "error", getErrorMsg(r.data) || '저장 실패.');
     }
   } catch(e) { showAlert(alrt, 'error', e.message); }
   setBtn(btn, false);
