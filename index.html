@@ -1386,10 +1386,10 @@ async function loadLicenseStatus() {
       document.getElementById('lc-desc').textContent        = getLicenseDesc(d.license_type || d.type);
       document.getElementById('lc-exp').textContent         = d.expires_at || d.expiry_date || '—';
       document.getElementById('lc-device-disp').textContent = state.deviceId.slice(0,14) + '...';
-      document.getElementById('lc-status-badge').textContent = d.is_active ? '활성' : '만료';
-      document.getElementById('lc-status-badge').className   = 'badge ' + (d.is_active ? 'badge-green' : 'badge-red');
+      document.getElementById('lc-status-badge').textContent = d.has_active_license ? '활성' : '만료';
+      document.getElementById('lc-status-badge').className   = 'badge ' + (d.has_active_license ? 'badge-green' : 'badge-red');
       if (d.expires_at || d.expiry_date) {
-        const exp  = new Date(d.expires_at || d.expiry_date);
+        const exp  = new Date(d.license_expires_at || d.expires_at || d.expiry_date);
         const days = Math.max(0, Math.ceil((exp - new Date()) / 86400000));
         document.getElementById('dash-days').textContent = days;
       }
@@ -1405,7 +1405,7 @@ async function loadLicenseStatus() {
           </div>
           <div style="display:flex;gap:12px;align-items:center;">
             <span style="font-size:11px;color:var(--text3);font-family:var(--ff-m);">상태:</span>
-            <span class="badge ${d.is_active?'badge-green':'badge-red'}">${d.is_active?'활성':'만료'}</span>
+            <span class="badge ${d.has_active_license?'badge-green':'badge-red'}">${d.has_active_license?'활성':'만료'}</span>
           </div>
         </div>`;
     }
