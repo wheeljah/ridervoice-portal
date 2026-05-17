@@ -1496,12 +1496,18 @@ async function redeemCoupon2() {
 async function loadDeliveryAccounts() {
   try {
     const r = await apiFetch('GET', '/api/v1/delivery-accounts', null, true);
-    if (r.ok && Array.isArray(r.data)) {
-      state.deliveryAccounts = r.data;
-      document.getElementById('dash-accounts').textContent = r.data.length;
+    if (r.ok) {
+      const accounts = Array.isArray(r.data) ? r.data : [];
+      state.deliveryAccounts = accounts;
+      const el = document.getElementById('dash-accounts');
+      if (el) el.textContent = accounts.length;
       renderDeliveryList();
+    } else {
+      toast('배달 계정 로드 실패 [' + r.status + ']: ' + getErrorMsg(r.data), 'error');
     }
-  } catch(e) { /* silent */ }
+  } catch(e) {
+    toast('배달 계정 로드 오류: ' + e.message, 'error');
+  }
 }
 
 function renderDeliveryList() {
@@ -1581,7 +1587,14 @@ async function linkDeliveryAccount() {
     if (r.ok) {
       closeModal('modal-link');
       toast((PLATFORM_META[platform]?.label || platform) + ' 계정이 연동되었습니다.', 'success');
-      loadDeliveryAccounts();
+      // 낙관적 업데이트 — GET 결과 기다리지 않고 즉시 렌더링
+      if (r.data) {
+        state.deliveryAccounts = [...state.deliveryAccounts, r.data];
+        renderDeliveryList();
+        const el = document.getElementById('dash-accounts');
+        if (el) el.textContent = state.deliveryAccounts.length;
+      }
+      loadDeliveryAccounts(); // 서버와 동기화 (백그라운드)
     } else {
       showAlert(alrt, "error", getErrorMsg(r.data) || '연동 실패.');
     }
