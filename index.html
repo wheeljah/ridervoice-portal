@@ -477,7 +477,6 @@ select option { background: var(--bg2); }
         </div>
       </div>
       <button class="btn btn-primary btn-block btn-lg" id="btn-login" onclick="doLogin()">로그인</button>
-      <p id="debug-url" style="font-size:11px;color:#888;margin-top:6px;word-break:break-all;"></p>
       <div class="divider-text mt-16 mb-12" style="font-size:11px;">아직 계정이 없으신가요?</div>
       <button class="btn btn-ghost btn-block" onclick="showRegister()">회원가입 →</button>
       <div class="mt-16" style="display:flex;justify-content:space-between;align-items:center;">
@@ -1038,7 +1037,6 @@ window.onload = () => {
     if (el) el.value = state.deviceId;
   });
 
-  const du = document.getElementById("debug-url"); if(du) du.textContent = "서버: " + cfg.baseUrl;
   // 서버 웜업 — 로그인 화면 진입 즉시 헬스체크로 슬립 해제
   warmupServer();
 
@@ -1145,16 +1143,8 @@ function getErrorMsg(data) {
   }
   return String(data);
 }
-function getErrorMsg(data) {\n  if (!data) return "알 수 없는 오류가 발생했습니다.";
-  if (typeof data === "string") return data;
-  if (typeof data === "object") {
-    if (data.detail) return getErrorMsg(data.detail);
-    if (data.message) return data.message;
-    if (data.error) return data.error;
-    if (data.msg) return data.msg;
-  }
-  return String(data);
-}\n\nfunction showAlert(el, type, msg) {
+
+function showAlert(el, type, msg) {
   el.className = 'alert alert-' + type + ' show';
   el.textContent = msg;
 }
@@ -1184,15 +1174,12 @@ function getLicenseDesc(type) {
 
 /* ═══ LOGIN ═══ */
 async function doLogin() {
-  const _diagUrl = typeof cfg !== 'undefined' ? cfg.baseUrl : '(cfg 미정의)';
-  window.alert('[진단1] doLogin 시작. 서버URL: ' + _diagUrl);
   const btn  = document.getElementById('btn-login');
   const id   = document.getElementById('login-id').value.trim();
   const pw   = document.getElementById('login-pw').value;
   const alrt = document.getElementById('login-alert');
   if (!id || !pw) { showAlert(alrt, 'error', '아이디와 비밀번호를 입력하세요.'); return; }
   setBtn(btn, true);
-  window.alert('[진단2] setBtn 완료. fetch 시작합니다.');
   showAlert(alrt, 'info', '서버에 연결 중...');
   try {
     const r = await apiFetch('POST', '/api/v1/auth/login', { username: id, password: pw });
