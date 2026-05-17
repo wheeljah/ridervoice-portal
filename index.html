@@ -988,8 +988,7 @@ document.addEventListener('copy', e => {
 })();
 
 /* ═══ CONFIG ═══ */
-const DEFAULT_URL     = 'https://ridervoice-demo.vercel.app';
-const DEFAULT_API_KEY = 'rv-api-key-change-in-production-2026';
+const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
 
 // 이전 Leapcell URL이 localStorage에 남아있으면 제거
 (function cleanStaleStorage() {
@@ -1003,7 +1002,7 @@ const DEFAULT_API_KEY = 'rv-api-key-change-in-production-2026';
 localStorage.removeItem('rv_url');
 let cfg = {
   baseUrl: DEFAULT_URL,
-  apiKey:  localStorage.getItem('rv_api') || DEFAULT_API_KEY,
+  apiKey:  localStorage.getItem('rv_api') || '',
 };
 
 /* ═══ STATE ═══ */
@@ -1038,6 +1037,8 @@ window.onload = () => {
     if (el) el.value = state.deviceId;
   });
 
+  // API 키 자동 초기화 — localStorage에 없으면 서버에서 가져옴
+  initClientConfig();
   // 서버 웜업 — 로그인 화면 진입 즉시 헬스체크로 슬립 해제
   warmupServer();
 
@@ -1047,6 +1048,22 @@ window.onload = () => {
     showView('view-login');
   }
 };
+
+// API 키 자동 초기화 — localStorage에 저장된 키가 없으면 서버에서 가져옴
+async function initClientConfig() {
+  if (cfg.apiKey) return;  // 이미 설정된 경우 스킵
+  try {
+    const res = await fetch(cfg.baseUrl + '/api/v1/client-config');
+    if (res.ok) {
+      const d = await res.json();
+      if (d.api_key) {
+        cfg.apiKey = d.api_key;
+        // localStorage에도 저장해 다음 방문 시 재요청 불필요
+        localStorage.setItem('rv_api', d.api_key);
+      }
+    }
+  } catch(e) { /* silent */ }
+}
 
 // 서버 웜업 + 5분마다 핑으로 슬립 방지
 async function warmupServer() {
