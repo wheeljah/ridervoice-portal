@@ -988,7 +988,8 @@ document.addEventListener('copy', e => {
 })();
 
 /* ═══ CONFIG ═══ */
-const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
+const DEFAULT_URL     = 'https://ridervoice-demo.vercel.app';
+const DEFAULT_API_KEY = 'b264035cf542113844b7ea8266e27dea4db5a2591dea77a3dd78c3a738ebeb80';
 
 // 이전 Leapcell URL이 localStorage에 남아있으면 제거
 (function cleanStaleStorage() {
@@ -1002,7 +1003,7 @@ const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
 localStorage.removeItem('rv_url');
 let cfg = {
   baseUrl: DEFAULT_URL,
-  apiKey:  localStorage.getItem('rv_api') || '',
+  apiKey:  localStorage.getItem('rv_api') || DEFAULT_API_KEY,
 };
 
 /* ═══ STATE ═══ */
