@@ -999,9 +999,11 @@ const DEFAULT_URL = 'https://ridervoice-demo.vercel.app';
   }
 })();
 
+// rv_url localStorage 완전 무시 — 항상 DEFAULT_URL 사용
+localStorage.removeItem('rv_url');
 let cfg = {
-  baseUrl: localStorage.getItem('rv_url') || DEFAULT_URL,
-  apiKey:  localStorage.getItem('rv_api')  || '',
+  baseUrl: DEFAULT_URL,
+  apiKey:  localStorage.getItem('rv_api') || '',
 };
 
 /* ═══ STATE ═══ */
@@ -1119,7 +1121,12 @@ async function apiFetch(method, path, body = null, auth = false) {
   if (cfg.apiKey)          headers['X-API-Key']     = cfg.apiKey;
   if (auth && state.token) headers['Authorization'] = 'Bearer ' + state.token;
   const t0  = Date.now();
-  const res = await fetch(cfg.baseUrl + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10000);
+  let res;
+  try {
+    res = await fetch(cfg.baseUrl + path, { method, headers, body: body ? JSON.stringify(body) : undefined, signal: controller.signal });
+  } finally { clearTimeout(timer); }
   const ms  = Date.now() - t0;
   let data;
   try { data = await res.json(); } catch { data = {}; }
