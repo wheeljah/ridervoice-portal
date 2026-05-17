@@ -821,7 +821,7 @@ select option { background: var(--bg2); }
           </div>
           <div class="lc-actions">
             <span class="badge badge-orange" id="lc-status-badge">미등록</span>
-            <button class="btn btn-primary btn-sm mt-8" onclick="openModal('modal-license')">🔑 라이선스 등록</button>
+            <button class="btn btn-primary btn-sm mt-8" onclick="document.getElementById('lic-device').value=state.deviceId;openModal('modal-license')">🔑 라이선스 등록</button>
           </div>
         </div>
         <div class="stat-grid">
@@ -857,7 +857,7 @@ select option { background: var(--bg2); }
         <div class="panel">
           <div class="panel-head">
             <h2>🔑 내 라이선스</h2>
-            <button class="btn btn-primary btn-sm" onclick="openModal('modal-license')">+ 라이선스 등록</button>
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('lic-device').value=state.deviceId;openModal('modal-license')">+ 라이선스 등록</button>
           </div>
           <div class="panel-body">
             <div id="lic-page-content" style="color:var(--text3);font-family:var(--ff-m);font-size:13px;">라이선스를 등록해주세요.</div>
@@ -1414,7 +1414,7 @@ async function loadLicenseStatus() {
 
 async function redeemLicense() {
   const key    = document.getElementById('lic-key').value.trim();
-  const device = document.getElementById('lic-device').value.trim();
+  const device = (document.getElementById('lic-device').value.trim()) || state.deviceId;
   const alrt   = document.getElementById('lic-alert');
   if (!key) { showAlert(alrt, 'error', '라이선스 키를 입력하세요.'); return; }
   try {
