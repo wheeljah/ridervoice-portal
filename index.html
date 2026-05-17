@@ -1184,12 +1184,15 @@ function getLicenseDesc(type) {
 
 /* ═══ LOGIN ═══ */
 async function doLogin() {
+  const _diagUrl = typeof cfg !== 'undefined' ? cfg.baseUrl : '(cfg 미정의)';
+  window.alert('[진단1] doLogin 시작. 서버URL: ' + _diagUrl);
   const btn  = document.getElementById('btn-login');
   const id   = document.getElementById('login-id').value.trim();
   const pw   = document.getElementById('login-pw').value;
   const alrt = document.getElementById('login-alert');
   if (!id || !pw) { showAlert(alrt, 'error', '아이디와 비밀번호를 입력하세요.'); return; }
   setBtn(btn, true);
+  window.alert('[진단2] setBtn 완료. fetch 시작합니다.');
   showAlert(alrt, 'info', '서버에 연결 중...');
   try {
     const r = await apiFetch('POST', '/api/v1/auth/login', { username: id, password: pw });
