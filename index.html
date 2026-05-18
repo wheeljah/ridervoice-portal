@@ -1606,7 +1606,7 @@ async function linkDeliveryAccount() {
         const el = document.getElementById('dash-accounts');
         if (el) el.textContent = state.deliveryAccounts.length;
       }
-      loadDeliveryAccounts(); // 서버와 동기화 (백그라운드)
+      setTimeout(loadDeliveryAccounts, 1500); // Neon write 전파 대기 후 동기화
     } else {
       showAlert(alrt, "error", getErrorMsg(r.data) || '연동 실패.');
     }
