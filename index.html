@@ -1359,6 +1359,8 @@ function renderPendingDelivery() {
 function enterApp() {
   showView('view-app');
   const user = state.user || {};
+  // 진단용 토스트 — user_id 및 deviceId 확인 (추후 제거 예정)
+  setTimeout(() => toast('🔍 user=' + (user.username||'?') + ' | device=' + (state.deviceId||'?').slice(0,16), 'info'), 1500);
   const name = user.name || user.username || '라이더';
   document.getElementById('app-username').textContent = name;
   document.getElementById('app-userid').textContent   = '@' + (user.username || 'rider');
